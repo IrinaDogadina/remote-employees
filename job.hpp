@@ -12,19 +12,19 @@ class Task {
 		string name; //краткое название
 		string description; //описание задачи
 	public:
-		void addT();
-		friend ifstream& operator>>(ifstream &fin, Task &t) {
+		void setAddT();
+		friend istream& operator>>(istream &fin, Task &t) {
 			cout << "Введите трудоемкость задачи:" << endl;
-			fin >> laibourness;
+			fin >> t.laboriousness;
 			cout << "Введите срок выполнения задачи:" << endl;
-			fin >> deadline;
-			active = false;
-			employee_id = 0;
-			completness = 0;
+			fin >> t.deadline;
+			t.active = false;
+			t.empolyee_id = 0;
+			t.completness = 0;
 			cout << "Введите название задачи:" << endl;
-			fin >> name;
+			fin >> t.name;
 			cout << "Опишите задачу:" << endl;
-			fin >> description;
+			fin >> t.description;
 			return fin;
 		}
 };
@@ -32,22 +32,25 @@ class Task {
 class Employees {
 	private:
 		string name; //имя
-  	string surname; //фамилия
-  	string middlename; //отчество
-  	int id; //айди
-  	int time; //время
+  		string surname; //фамилия
+  		string middlename; //отчество
+  		int id; //айди
+  		int time; //время
 	public:
-		void addE();
-		friend ifstream& operator>>(ifstream &fin, Employees &E){
+		void setAddE();
+		friend istream& operator>>(istream &fin, Employees &e){
 			cout << "Введите имя сотрудника:" << endl;
-			fin >> name;
+			fin >> e.name;
 			cout << "Введите фамилию сотрудника:" << endl;
-			fin >> surname;
+			fin >> e.surname;
 			cout << "Введите отчество сотрудника:" << endl;
-			fin >> middlename;
+			fin >> e.middlename;
 			cout << "Введите id сотрудника:" << endl;
-			fin >> id;
+			fin >> e.id;
 			cout << "Введите время, которое может отработать сотрудник за неделю:" << endl;
-			fin >> time;
+			fin >> e.time;
+			return fin;
 		}
 };
+
+//void AddMain(Object& o);
