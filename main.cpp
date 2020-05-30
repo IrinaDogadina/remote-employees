@@ -3,6 +3,8 @@
 #include "job.hpp"
 using namespace std;
 
+void viewE(string databaseE, string databaseT);
+
 int main(int argc, char const *argv[]) {
 	if (argc != 3) {
 		cout << "Неверное количество параметров" << endl;
@@ -50,12 +52,13 @@ int main(int argc, char const *argv[]) {
 			}
 			case 2: {
 	      int MenuView = 0;
-	      cout << "1. Просмотр работников их их задачи" << endl;
+	      cout << "1. Просмотр работников и их задач" << endl;
 				cout << "2. Просмотр свободынх задач" << endl;
 				cout << "3. Вернуться" << endl;
 	      cin >> MenuView;
 	      switch(MenuView) {
 	      	case 1:
+						viewE(databaseE, databaseT);
 						break;
 	      	case 2:
 						break;
