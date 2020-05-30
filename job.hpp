@@ -5,9 +5,8 @@ using namespace std;
 
 class Task {
 	private:
-		int laboriousness = 0; //трудоемкость
-		int deadline = 0; //дедлаин
-		bool active; //есть ли сотрудник который выполянет задачу
+		int laboriousness; //трудоемкость
+		int deadline; //дедлаин
 		int employee_id; //айди сотрудника который выполняет
 		int completness; //степень готовности
 		string name; //краткое название
@@ -27,13 +26,6 @@ class Task {
 		int getDeadl(fstream& FileT) {
 			setDeadl(FileT);
 			return deadline;
-		}
-		void setActive(fstream& FileT) {
-			FileT >> active;
-		}
-		bool getActive(fstream& FileT) {
-			setActive(FileT);
-			return active;
 		}
 		void setEmpId(fstream& FileT) {
 			FileT >> employee_id;
@@ -65,7 +57,13 @@ class Task {
 		}
 		int setSize(fstream& FileT){
 			int size = 0;
-			while(FileT.eof()) {
+			while(!FileT.eof()) {
+				FileT >> laboriousness;
+				FileT >> deadline;
+				FileT >> employee_id;
+				FileT >> completness;
+				 //FileT >> name;
+				//FileT >> description;
 				size++;
 			}
 			return size;
@@ -132,7 +130,12 @@ class Employees {
 		}
 		int setSize(fstream& FileE){
 			int size = 0;
-			while(FileE.eof()) {
+			while(!FileE.eof()) {
+				FileE >> name;
+				FileE >> surname;
+				FileE >> middlename;
+				FileE >> id;
+				FileE >> time;
 				size++;
 			}
 			return size;

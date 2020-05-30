@@ -4,6 +4,7 @@
 using namespace std;
 
 void viewE(string databaseE, string databaseT);
+void viewT(string databaseT);
 
 int main(int argc, char const *argv[]) {
 	if (argc != 3) {
@@ -53,7 +54,7 @@ int main(int argc, char const *argv[]) {
 			case 2: {
 	      int MenuView = 0;
 	      cout << "1. Просмотр работников и их задач" << endl;
-				cout << "2. Просмотр свободынх задач" << endl;
+				cout << "2. Просмотр свободных задач" << endl;
 				cout << "3. Вернуться" << endl;
 	      cin >> MenuView;
 	      switch(MenuView) {
@@ -61,6 +62,7 @@ int main(int argc, char const *argv[]) {
 						viewE(databaseE, databaseT);
 						break;
 	      	case 2:
+						viewT(databaseT);
 						break;
 					case 3:
 						break;
