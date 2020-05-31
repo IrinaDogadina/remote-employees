@@ -5,6 +5,7 @@ using namespace std;
 
 void viewE(string databaseE, string databaseT);
 void viewT(string databaseT);
+void assign(string databaseT, string databaseE);
 
 int main(int argc, char const *argv[]) {
 	if (argc != 3) {
@@ -77,7 +78,7 @@ int main(int argc, char const *argv[]) {
 			case 3:
 				break;
 			case 4:
-	//			assign(databaseT, databaseE);
+				assign(databaseT, databaseE);
 				break;
 			case 5:
 	      break;

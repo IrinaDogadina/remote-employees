@@ -3,49 +3,6 @@
 #include <fstream>
 using namespace std;
 
-void Task::setT(string databaseT) {
-	Task t;
-	ofstream File(databaseT, ios::app);
-	cout << "Введите трудоемкость задачи:" << endl;
-	cin >> t.laboriousness;
-	cout << "Введите срок выполнения задачи:" << endl;
-	cin >> t.deadline;
-	t.employee_id = 0;
-	t.completness = 0;
-	cout << "Введите название задачи:" << endl;
-	getline (cin, t.name);
-	cout << "Опишите задачу:" << endl;
-	getline (cin, t.description);
-	File << t.laboriousness << endl;
-	File << t.deadline << endl;
-	File << t.employee_id << endl;
-	File << t.completness << endl;
-	File << t.name << endl;
-	File << t.description << endl;
-	File.close();
-}
-
-void Employees::setE(string databaseE) {
-	Employees e;
-  ofstream File(databaseE, ios::app);
-	cout << "Введите имя сотрудника:" << endl;
-	cin >> e.name;
-	cout << "Введите фамилию сотрудника:" << endl;
-	cin >> e.surname;
-	cout << "Введите отчество сотрудника:" << endl;
-	cin >> e.middlename;
-	cout << "Введите id сотрудника:" << endl;
-	cin >> e.id;
-	cout << "Введите время, которое может отработать сотрудник за неделю:" << endl;
-	cin >> e.time;
-  File << e.name << endl;
-	File << e.surname << endl;
-	File << e.middlename << endl;
-	File << e.id << endl;
-	File << e.time << endl;
-  File.close();
-}
-
 void memAllocT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& name, string*& description){
 	laboriousness = new int[sizeT];
 	deadline = new int[sizeT];
@@ -77,11 +34,102 @@ void memFreeE(int sizeE, string*& name, string*& surname, string*& middlename, i
 	delete[] time;
 }
 
+void Task::setT(string databaseT) {
+	Task t;
+	fstream File;
+	File.open(databaseT, ios::app);
+	if (!(File.is_open())){
+		cout << "Ошибка открытия файла" << endl;
+		exit(0);
+	}
+	cout << "Введите трудоемкость задачи:" << endl;
+	cin >> t.laboriousness;
+	cout << "Введите срок выполнения задачи:" << endl;
+	cin >> t.deadline;
+	t.employee_id = 0;
+	t.completness = 0;
+	cout << "Введите название задачи:" << endl;
+	getline (cin, t.name);
+	cout << "Опишите задачу:" << endl;
+	getline (cin, t.description);
+	File << t.laboriousness << endl;
+	File << t.deadline << endl;
+	File << t.employee_id << endl;
+	File << t.completness << endl;
+	File << t.name << endl;
+	File << t.description << endl;
+	File.close();
+}
+
+void Employees::setE(string databaseE) {
+	fstream FileE;
+	FileE.open(databaseE, ios:: app | ios::in);
+	if (!(FileE.is_open())){
+		cout << "Ошибка открытия файла" << endl;
+		exit(0);
+	}
+	Employees* e = new Employees;
+	Employees* countE = new Employees;
+	int size = countE->setSize(FileE);
+	delete countE;
+	int i, *id = 0, *time = 0;
+	string *nameE = {}, *surname = {}, *middlename = {};
+	memAllocE(size, nameE, surname, middlename, id, time);
+	size--;
+	FileE.clear();
+	FileE.seekg(0);
+	for (i = 0; i < size; i++) {
+		nameE[i].assign(e->getName(FileE));
+		surname[i].assign(e->getSurname(FileE));
+		middlename[i].assign(e->getMiddName(FileE));
+		id[i] = e->getId(FileE);
+		time[i] = e->getTime(FileE);
+	}
+	FileE.close();
+	fstream FileE2;
+	FileE2.open(databaseE, ios::app);
+	cout << "Введите имя сотрудника:" << endl;
+	cin >> e->name;
+	cout << "Введите фамилию сотрудника:" << endl;
+	cin >> e->surname;
+	cout << "Введите отчество сотрудника:" << endl;
+	cin >> e->middlename;
+	cout << "Введите время, которое может отработать сотрудник за неделю:" << endl;
+	cin >> e->time;
+	if (size == 0){
+		FileE2 << e->name << endl;
+		FileE2 << e->surname << endl;
+		FileE2 << e->middlename << endl;
+		FileE2 << '1' << endl;
+		FileE2 << e->time << endl;
+	}
+	else {
+		id[size-1]++;
+		e->id = id[size-1];
+		FileE2 << e->name << endl;
+		FileE2 << e->surname << endl;
+		FileE2 << e->middlename << endl;
+		FileE2 << e->id << endl;
+		FileE2 << e->time << endl;
+	}
+	delete e;
+  FileE2.close();
+	memFreeE(size, nameE, surname, middlename, id, time);
+}
+
 void viewE(string databaseE, string databaseT) {
 	fstream FileT;
 	FileT.open(databaseT, ios::app | ios::in);
 	fstream FileE;
 	FileE.open(databaseE, ios::app | ios::in);
+	if (!(FileT.is_open())){
+		cout << "Ошибка открытия файла" << endl;
+		exit(0);
+	}
+	if (!(FileE.is_open())){
+		cout << "Ошибка открытия файла" << endl;
+		exit(0);
+	}
 	Task* countT = new Task;
 	Employees* countE = new Employees;
 	int sizeT = countT->setSize(FileT);
@@ -141,6 +189,10 @@ void viewE(string databaseE, string databaseT) {
 void viewT(string databaseT){
 	fstream FileT;
 	FileT.open(databaseT, ios::app | ios::in);
+	if (!(FileT.is_open())){
+		cout << "Ошибка открытия файла" << endl;
+		exit(0);
+	}
 	Task* countT = new Task;
 	int sizeT = countT->setSize(FileT);
 	sizeT--;
@@ -172,4 +224,8 @@ void viewT(string databaseT){
 		}
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
 	FileT.close();
+}
+
+void assign(string databaseT, string databaseE) {
+	cout << endl;
 }

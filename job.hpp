@@ -92,7 +92,6 @@ class Employees {
   	int id; //айди
   	int time; //время
 	public:
-		void setE(string databaseE);
 		void setName(fstream& FileE) {
 			FileE >> name;
 		}
@@ -140,6 +139,7 @@ class Employees {
 			}
 			return size;
 		}
+		void setE(string databaseE);
 /*		friend istream& operator>> (istream &fin, Employees &e){
 			cout << "Введите имя сотрудника:" << endl;
 			fin >> e.name;
