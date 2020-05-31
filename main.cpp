@@ -6,6 +6,7 @@ using namespace std;
 void viewE(string databaseE, string databaseT);
 void viewT(string databaseT);
 void assign(string databaseT, string databaseE);
+void Time_F();
 
 int main(int argc, char const *argv[]) {
 	if (argc != 3) {
@@ -18,7 +19,7 @@ int main(int argc, char const *argv[]) {
 	for (;;) {
 		cout << "1. Добавление" << endl;
 		cout << "2. Просмотр" << endl;
-		cout << "3. Вывод задач" << endl;
+		cout << "3. Пересчет степени готовности" << endl;
 		cout << "4. Присвоить задачу" << endl;
 		cout << "5. Удаление сотрудника" << endl;
 		cout << "6. Выход" << endl;
@@ -76,6 +77,7 @@ int main(int argc, char const *argv[]) {
 			break;
 			}
 			case 3:
+				Time_F();
 				break;
 			case 4:
 				assign(databaseT, databaseE);

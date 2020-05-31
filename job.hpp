@@ -91,6 +91,7 @@ class Employees {
   	string middlename; //отчество
   	int id; //айди
   	int time; //время
+		int timeF;//свободное время
 	public:
 		void setName(fstream& FileE) {
 			FileE >> name;
@@ -126,6 +127,13 @@ class Employees {
 		int getTime(fstream& FileE) {
 			setTime(FileE);
 			return time;
+		}
+		void setTimeF(fstream& FileE) {
+			FileE >> timeF;
+		}
+		int getTimeF(fstream& FileE) {
+			setTime(FileE);
+			return timeF;
 		}
 		int setSize(fstream& FileE){
 			int size = 0;
