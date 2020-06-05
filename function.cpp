@@ -11,13 +11,13 @@ void memAllocT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id
 	name = new string[sizeT];
 	description = new string[sizeT];
 }
-void memAllocE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time,int*& timeF) {
+void memAllocE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
 	name = new string[sizeE];
 	surname = new string[sizeE];
 	middlename = new string[sizeE];
 	id = new int[sizeE];
 	time = new int[sizeE];
-	timeF = new int[sizeE];
+	tasks = new int[sizeE];
 }
 void memFreeT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& name, string*& description) {
 	delete[] laboriousness;
@@ -27,19 +27,19 @@ void memFreeT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id,
 	delete[] name;
 	delete[] description;
 }
-void memFreeE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time, int*& timeF) {
+void memFreeE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
 	delete[] name;
 	delete[] surname;
 	delete[] middlename;
 	delete[] id;
 	delete[] time;
-	delete[] timeF;
+	delete[] tasks;
 }
 
 void Task::setT(string databaseT) {
 	Task t;
 	fstream File;
-	File.open(databaseT, ios::app);
+	File.open(databaseT, ios::app | ios::in);
 	if (!(File.is_open())){
 		cout << "Ошибка открытия файла" << endl;
 		exit(0);
@@ -65,32 +65,29 @@ void Task::setT(string databaseT) {
 
 void Employees::setE(string databaseE) {
 	fstream FileE;
-	FileE.open(databaseE, ios:: app | ios::in);
+	FileE.open(databaseE, ios::app | ios::in);
 	if (!(FileE.is_open())){
 		cout << "Ошибка открытия файла" << endl;
 		exit(0);
 	}
-	Employees* e = new Employees;
 	Employees* countE = new Employees;
 	int size = countE->setSize(FileE);
 	delete countE;
-	int i, *id = 0, *time = 0, *timeF=0;
+	int i, *id = 0, *time = 0, *tasks = 0;
 	string *nameE = {}, *surname = {}, *middlename = {};
-	memAllocE(size, nameE, surname, middlename, id, time, timeF);
+	memAllocE(size, nameE, surname, middlename, id, time, tasks);
 	size--;
 	FileE.clear();
 	FileE.seekg(0);
+	Employees* e = new Employees;
 	for (i = 0; i < size; i++) {
 		nameE[i].assign(e->getName(FileE));
 		surname[i].assign(e->getSurname(FileE));
 		middlename[i].assign(e->getMiddName(FileE));
 		id[i] = e->getId(FileE);
 		time[i] = e->getTime(FileE);
-		timeF[i]=e->getTimeF(FileE);
+		tasks[i] = e->getTasks(FileE);
 	}
-	FileE.close();
-	fstream FileE2;
-	FileE2.open(databaseE, ios::app);
 	cout << "Введите имя сотрудника:" << endl;
 	cin >> e->name;
 	cout << "Введите фамилию сотрудника:" << endl;
@@ -100,33 +97,33 @@ void Employees::setE(string databaseE) {
 	cout << "Введите время, которое может отработать сотрудник за неделю:" << endl;
 	cin >> e->time;
 	if (size == 0){
-		FileE2 << e->name << endl;
-		FileE2 << e->surname << endl;
-		FileE2 << e->middlename << endl;
-		FileE2 << '1' << endl;
-		FileE2 << e->time << endl;
-		FileE2 << e->time << endl;
+		FileE << e->name << endl;
+		FileE << e->surname << endl;
+		FileE << e->middlename << endl;
+		FileE << '1' << endl;
+		FileE << e->time << endl;
+		FileE << '0' << endl;
 	}
 	else {
 		id[size-1]++;
 		e->id = id[size-1];
-		FileE2 << e->name << endl;
-		FileE2 << e->surname << endl;
-		FileE2 << e->middlename << endl;
-		FileE2 << e->id << endl;
-		FileE2 << e->time << endl;
-		FileE2 << e->time << endl;
+		FileE << e->name << endl;
+		FileE << e->surname << endl;
+		FileE << e->middlename << endl;
+		FileE << e->id << endl;
+		FileE << e->time << endl;
+		FileE << '0' << endl;
 	}
 	delete e;
-  FileE2.close();
-	memFreeE(size, nameE, surname, middlename, id, time, timeF);
+  FileE.close();
+	memFreeE(size, nameE, surname, middlename, id, time, tasks);
 }
 
 void viewE(string databaseE, string databaseT) {
-	fstream FileT;
-	FileT.open(databaseT, ios::app | ios::in);
 	fstream FileE;
-	FileE.open(databaseE, ios::app | ios::in);
+	FileE.open(databaseE, ios::in);
+	fstream FileT;
+	FileT.open(databaseT, ios::in);
 	if (!(FileT.is_open())){
 		cout << "Ошибка открытия файла" << endl;
 		exit(0);
@@ -143,10 +140,10 @@ void viewE(string databaseE, string databaseT) {
 	sizeE--;
 	delete countT;
 	delete countE;
-	int i, j, *laboriousness = 0, *deadline = 0, *employee_id = 0, *completness = 0, *id = 0, *time = 0, *timeF=0;
+	int i, j, *laboriousness = 0, *deadline = 0, *employee_id = 0, *completness = 0, *id = 0, *time = 0, *tasks = 0;
 	string *nameT = {}, *description = {}, *nameE = {}, *surname = {}, *middlename = {};
 	memAllocT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
-	memAllocE(sizeE, nameE, surname, middlename, id, time, timeF);
+	memAllocE(sizeE, nameE, surname, middlename, id, time, tasks);
 	FileT.clear();
 	FileT.seekg(0);
 	FileE.clear();
@@ -168,11 +165,11 @@ void viewE(string databaseE, string databaseT) {
 		middlename[i].assign(e->getMiddName(FileE));
 		id[i] = e->getId(FileE);
 		time[i] = e->getTime(FileE);
-		timeF[i]=e->getTimeF(FileE);
+		tasks[i] = e->getTasks(FileE);
 		delete e;
 	}
 	for (i = 0; i < sizeE; i++) {
-		cout << endl << nameE[i] << ' ' << surname[i] << ' ' << middlename[i] << ' ' << "ID: " << id[i] << "Часы работы в неделю: " << time[i]<<"Доступные часы работы в неделю " <<  timeF[i] << endl;
+		cout << endl << nameE[i] << ' ' << surname[i] << ' ' << middlename[i] << ' ' << "ID: " << id[i] << " Часы работы в неделю: " << time[i] << endl;
 		for (j = 0; j < sizeT; j++){
 			if (employee_id[j] == id[i]) {
 				cout << endl;
@@ -187,14 +184,14 @@ void viewE(string databaseE, string databaseT) {
 		}
 	}
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
-	memFreeE(sizeE, nameE, surname, middlename, id, time,timeF);
+	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 	FileE.close();
 	FileT.close();
 }
 
 void viewT(string databaseT){
 	fstream FileT;
-	FileT.open(databaseT, ios::app | ios::in);
+	FileT.open(databaseT, ios::in);
 	if (!(FileT.is_open())){
 		cout << "Ошибка открытия файла" << endl;
 		exit(0);
@@ -253,10 +250,10 @@ void assign(string databaseT, string databaseE) {
 	sizeE--;
 	delete countT;
 	delete countE;
-	int i, j, *laboriousness = 0, *deadline = 0, *employee_id = 0, *completness = 0, *id = 0, *time = 0, *timeF=0;
+	int i, j, k, *laboriousness = 0, *deadline = 0, *employee_id = 0, *completness = 0, *id = 0, *time = 0, *tasks=0;
 	string *nameT = {}, *description = {}, *nameE = {}, *surname = {}, *middlename = {};
 	memAllocT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
-	memAllocE(sizeE, nameE, surname, middlename, id, time, timeF);
+	memAllocE(sizeE, nameE, surname, middlename, id, time, tasks);
 	FileT.clear();
 	FileT.seekg(0);
 	FileE.clear();
@@ -278,59 +275,84 @@ void assign(string databaseT, string databaseE) {
 		middlename[i].assign(e->getMiddName(FileE));
 		id[i] = e->getId(FileE);
 		time[i] = e->getTime(FileE);
-		timeF[i]=e->getTimeF(FileE);
+		tasks[i] = e->getTime(FileE);
 		delete e;
 	}
 	int temp, temp_id;
 	cout << "Выберите задачу для присвоения сотруднику: " << endl;
 	cin >> temp;
-	for(i=0;i<sizeT;i++)
-	{
-		if(temp==deadline[i]){
-			cout << deadline[i]<< employee_id[i]<<endl;
+	for (i = 0; i < sizeT; i++) {
+		if (temp == deadline[i] && employee_id[i] == 0){
 			cout << "Выберите id сотрудника: " << endl;
 			cin >> temp_id;
-			for(int j=0;j<sizeE;j++){
-				if(temp_id==id[j]){
-					//добавить функцию расчета трудоемкости
-					employee_id[i]=temp_id;
+			for (j = 0; j < sizeE; j++){
+				if (temp_id == id[j]){
+					int count = 0;
+					int ddl = deadline[i];
+					while (ddl >= 168){
+						ddl = deadline[i]-168;
+						count++;
+					}
+					if (ddl > (laboriousness[i]-((time[j]*count)/(tasks[j]+1)))){
+						int a = 0;
+						if (tasks[j] != 0){
+							for (k = 0; k < sizeT; k++){
+								if (employee_id[k] == temp_id) {
+									count = 0;
+									ddl = deadline[k];
+									while (ddl >= 168) {
+										ddl = deadline[i]-168;
+										count++;
+									}
+								}
+								if (ddl < (laboriousness[k]-((time[j]*count)/(tasks[j]+1)))){
+									a++;
+									cout << "Невозможно присвоить задачу, сотрудник не успеет выполнить другие свои задачи." << endl;
+									break;
+								}
+							}
+						}
+						if (a == 0){
+							employee_id[i] = temp_id;
+							tasks[j]++;
+						}
+					}
+					else {
+						cout << "Невозможно присвоить задачу, сотрудник не успеет ее выполнить." << endl;
+					}
 				}
 			}
-			cout << deadline[i]<< employee_id[i]<<endl;
 		}
 	}
 	FileE.close();
 	FileT.close();
 	fstream FileTO;
 	FileTO.open(databaseT, ios::trunc | ios::out);
-	for(i=0;i<sizeT;i++){
-		FileTO << laboriousness[i] <<endl;
+	fstream FileT1;
+	FileT1.open(databaseE, ios::trunc | ios::out);
+	for (i = 0; i < sizeT; i++){
+		FileTO << laboriousness[i] << endl;
 		FileTO << deadline[i] << endl;
 		FileTO << employee_id[i] << endl;
 		FileTO << completness[i] << endl;
 	}
+	for (j = 0; j < sizeE; j++){
+		FileT1 << nameE[j] << endl;
+		FileT1 << surname[j] << endl;
+		FileT1 << middlename[j] << endl;
+		FileT1 << id[j] << endl;
+		FileT1 << time[j] << endl;
+		FileT1 << tasks[j] << endl;
+	}
 	FileTO.close();
+	FileT1.close();
+	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
+	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 }
 
-void Time_F(){
-	int Time=0;//сюда забираем сутки которые прошли
-	cout << "Введите количество прошедших суток" <<endl;
-	cin >> Time;
-	int count=0;//сюда считаем сколько уже прошло
-	int week=0;//показатель пошедших дней для обнуления свободного времени
-	fstream FileTime;
-	FileTime.open("Time.txt",ios::in | ios::app);
-  if(!FileTime.eof())
-	{
-		FileTime >> count;
-		FileTime >> week;
-	}
-	else{
-		FileTime << '0'<<endl;
-		FileTime << '0'<<endl;
-	}
-	count+=Time;
-	FileT.close();
+void Time_F(string databaseT, string databaseE){
+	int week = 168;
+	cout << "Прошла неделя" << endl;
 	fstream FileT;
 	FileT.open(databaseT, ios::app | ios::in);
 	fstream FileE;
@@ -351,10 +373,10 @@ void Time_F(){
 	sizeE--;
 	delete countT;
 	delete countE;
-	int i, j, *laboriousness = 0, *deadline = 0, *employee_id = 0, *completness = 0, *id = 0, *time = 0;
+	int i, j, *laboriousness = 0, *deadline = 0, *employee_id = 0, *completness = 0, *id = 0, *time = 0, *tasks = 0;
 	string *nameT = {}, *description = {}, *nameE = {}, *surname = {}, *middlename = {};
 	memAllocT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
-	memAllocE(sizeE, nameE, surname, middlename, id, time);
+	memAllocE(sizeE, nameE, surname, middlename, id, time, tasks);
 	FileT.clear();
 	FileT.seekg(0);
 	FileE.clear();
@@ -376,15 +398,51 @@ void Time_F(){
 		middlename[i].assign(e->getMiddName(FileE));
 		id[i] = e->getId(FileE);
 		time[i] = e->getTime(FileE);
+		tasks[i] = e->getTasks(FileE);
 		delete e;
 	}
-	/*for(i=0;i<sizeE;i++){
-		for(int j=0;j<sizeT;j++){
-			if(employee_id[j]!=0 && employee_id[j]==id[i]){
-				timeF[i]-=Time;
-					cout << "" <<endl;
-
+	for (i = 0; i < sizeE; i++){
+		if (tasks[i] != 0){
+			for (j = 0; j < sizeT; j++){
+				 if (employee_id[j] != 0 && employee_id[j] == id[i] && completness[j] != 100){
+					int count = laboriousness[j]-(time[i]/tasks[i]);
+					completness[j] += (count*100)/laboriousness[j];
+					laboriousness[j] = count;
+					deadline[j] = deadline[j]-168;
+					if (laboriousness[j] <= 0){
+						laboriousness[j] = 0;
+						completness[j] = 100;
+						tasks[i]--;
+					}
+					if (deadline[j] < 0){
+						deadline[j] = 0;
+					}
+				}
 			}
 		}
-	}*/
+	}
+	FileE.close();
+	FileT.close();
+	fstream FileT0;
+	FileT0.open(databaseT, ios::trunc | ios::out);
+	fstream FileT1;
+	FileT1.open(databaseE, ios::trunc | ios::out);
+	for (i = 0; i < sizeT; i++){
+		FileT0 << laboriousness[i] << endl;
+		FileT0 << deadline[i] << endl;
+		FileT0 << employee_id[i] << endl;
+		FileT0 << completness[i] << endl;
+	}
+	for (j = 0; j < sizeE; j++){
+		FileT1 << nameE[j] << endl;
+		FileT1 << surname[j] << endl;
+		FileT1 << middlename[j] << endl;
+		FileT1 << id[j] << endl;
+		FileT1 << time[j] << endl;
+		FileT1 << tasks[j] << endl;
+	}
+	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
+	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
+	FileT0.close();
+	FileT1.close();
 }
