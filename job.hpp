@@ -62,8 +62,8 @@ class Task {
 				FileT >> deadline;
 				FileT >> employee_id;
 				FileT >> completness;
-				 //FileT >> name;
-				//FileT >> description;
+				FileT >> name;
+				FileT >> description;
 				size++;
 			}
 			return size;
@@ -91,6 +91,7 @@ class Employees {
   	string middlename; //отчество
   	int id; //айди
   	int time; //время
+		int tasks; //колво задач на сотрдунике
 	public:
 		void setName(fstream& FileE) {
 			FileE >> name;
@@ -127,6 +128,13 @@ class Employees {
 			setTime(FileE);
 			return time;
 		}
+		void setTasks(fstream& FileE) {
+			FileE >> tasks;
+		}
+		int getTasks(fstream& FileE) {
+			setTasks(FileE);
+			return tasks;
+		}
 		int setSize(fstream& FileE){
 			int size = 0;
 			while(!FileE.eof()) {
@@ -135,6 +143,7 @@ class Employees {
 				FileE >> middlename;
 				FileE >> id;
 				FileE >> time;
+				FileE >> tasks;
 				size++;
 			}
 			return size;
@@ -154,3 +163,5 @@ class Employees {
 			return fin;
 		}*/
 };
+//void assign(Employees * e, Task * t);
+//void test_f(string databaseT, string databaseE, int Menu);
