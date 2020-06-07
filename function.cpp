@@ -123,7 +123,7 @@ void viewE(string databaseE, string databaseT) {
 	fstream FileE;
 	FileE.open(databaseE, ios::in);
 	fstream FileT;
-	FileT.open(databaseT, ios::in);
+	FileT.open(databaseT, ios::in | ios::app);
 	if (!(FileT.is_open())){
 		cout << "Ошибка открытия файла" << endl;
 		exit(0);
@@ -289,23 +289,33 @@ void assign(string databaseT, string databaseE) {
 				if (temp_id == id[j]){
 					int count = 0;
 					int ddl = deadline[i];
-					while (ddl >= 168){
-						ddl = deadline[i]-168;
-						count++;
+					if (ddl > 168){
+						while (ddl > 0){
+							ddl = ddl-168;
+							count++;
+						}
 					}
-					if (ddl > (laboriousness[i]-((time[j]*count)/(tasks[j]+1)))){
+					else {
+						count = 1;
+					}
+					if (ddl >= (laboriousness[i]-((time[j]*count)/(tasks[j]+1))) && ((laboriousness[i]-((time[j]*count)/(tasks[j]+1))) <= 0)){
 						int a = 0;
 						if (tasks[j] != 0){
 							for (k = 0; k < sizeT; k++){
 								if (employee_id[k] == temp_id) {
 									count = 0;
 									ddl = deadline[k];
-									while (ddl >= 168) {
-										ddl = deadline[i]-168;
-										count++;
+									if (ddl > 168){
+										while (ddl > 0) {
+											ddl = ddl-168;
+											count++;
+										}
+									}
+									else {
+										count = 1;
 									}
 								}
-								if (ddl < (laboriousness[k]-((time[j]*count)/(tasks[j]+1)))){
+								if (ddl < (laboriousness[k]-((time[j]*count)/(tasks[j]+1))) && (laboriousness[k]-((time[j]*count)/(tasks[j]+1))) > 0){
 									a++;
 									cout << "Невозможно присвоить задачу, сотрудник не успеет выполнить другие свои задачи." << endl;
 									break;
@@ -404,7 +414,7 @@ void Time_F(string databaseT, string databaseE){
 	for (i = 0; i < sizeE; i++){
 		if (tasks[i] != 0){
 			for (j = 0; j < sizeT; j++){
-				 if (employee_id[j] != 0 && employee_id[j] == id[i] && completness[j] != 100){
+				 if (employee_id[j] != 0 && employee_id[j] == id[i] && completness[j] != 100 && laboriousness != 0){
 					int count = laboriousness[j]-(time[i]/tasks[i]);
 					completness[j] += (count*100)/laboriousness[j];
 					laboriousness[j] = count;

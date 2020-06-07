@@ -143,6 +143,7 @@ class Employees {
 				FileE >> middlename;
 				FileE >> id;
 				FileE >> time;
+				FileE >> tasks;
 				size++;
 			}
 			return size;
