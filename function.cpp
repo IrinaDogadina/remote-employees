@@ -56,12 +56,19 @@ void Task::setT(string databaseT) {
 
 	t.employee_id = 0;
 	t.completness = 0;
+<<<<<<< HEAD
+=======
+	//cout << "Введите название задачи:" << endl;
+	//getline (cin, t.name);
+	//cout << "Опишите задачу:" << endl;
+	//getline (cin, t.description);
+>>>>>>> a80864f90eb31bf817faea7477dc1ccc5d23dcf9
 	File << t.laboriousness << endl;
 	File << t.deadline << endl;
 	File << t.employee_id << endl;
 	File << t.completness << endl;
-	File << t.name << endl;
-	File << t.description << endl;
+	//File << t.name << endl;
+	//File << t.description << endl;
 	File.close();
 }
 
@@ -266,8 +273,13 @@ void assign(string databaseT, string databaseE) {
 		deadline[i] = t->getDeadl(FileT);
 		employee_id[i] = t->getEmpId(FileT);
 		completness[i] = t->getCompl(FileT);
+<<<<<<< HEAD
 		nameT[i].assign(t->getName(FileT));
 		description[i].assign(t->getDescr(FileT));
+=======
+		//nameT[i].assign(t->getName(FileT));
+		//description[i].assign(t->getDescr(FileT));
+>>>>>>> a80864f90eb31bf817faea7477dc1ccc5d23dcf9
 		delete t;
 	}
 	for (i = 0; i < sizeE; i++) {
@@ -281,6 +293,7 @@ void assign(string databaseT, string databaseE) {
 		delete e;
 	}
 	int temp, temp_id;
+<<<<<<< HEAD
 	for (i = 0; i < sizeT; i++) {
 			if (employee_id[i] == 0) {
 				cout << "Название задачи: " << nameT[i] << endl;
@@ -297,6 +310,12 @@ void assign(string databaseT, string databaseE) {
 			//for (k = 0; k < sizeE; k++) {
 		//		cout << endl <<"ID: " << id[k] <<  nameE[k] << ' ' << surname[k] << ' ' << middlename[k] << ' ' << " Часы работы в неделю: " << time[k] << endl;
 		//	}
+=======
+	cout << "Выберите задачу для присвоения сотруднику: " << endl;
+	cin >> temp;
+	for (i = 0; i < sizeT; i++) {
+		if (temp == deadline[i] && employee_id[i] == 0){
+>>>>>>> a80864f90eb31bf817faea7477dc1ccc5d23dcf9
 			cout << "Выберите id сотрудника: " << endl;
 			cin >> temp_id;
 			for (j = 0; j < sizeE; j++){
@@ -411,8 +430,13 @@ void Time_F(string databaseT, string databaseE){
 		deadline[i] = t->getDeadl(FileT);
 		employee_id[i] = t->getEmpId(FileT);
 		completness[i] = t->getCompl(FileT);
+<<<<<<< HEAD
 		nameT[i].assign(t->getName(FileT));
 		description[i].assign(t->getDescr(FileT));
+=======
+		//nameT[i].assign(t->getName(FileT));
+		//description[i].assign(t->getDescr(FileT));
+>>>>>>> a80864f90eb31bf817faea7477dc1ccc5d23dcf9
 		delete t;
 	}
 	for (i = 0; i < sizeE; i++) {
@@ -469,6 +493,7 @@ void Time_F(string databaseT, string databaseE){
 	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 	FileT0.close();
 	FileT1.close();
+<<<<<<< HEAD
 }
 
 
@@ -522,4 +547,6 @@ void test_f(string databaseT, string databaseE, int Menu){
 		delete e;
 	}
 	//if(Menu==4)assign(e,t);*/
+=======
+>>>>>>> a80864f90eb31bf817faea7477dc1ccc5d23dcf9
 }

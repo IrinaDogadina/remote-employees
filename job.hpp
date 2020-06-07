@@ -62,8 +62,13 @@ class Task {
 				FileT >> deadline;
 				FileT >> employee_id;
 				FileT >> completness;
+<<<<<<< HEAD
 				FileT >> name;
 				FileT >> description;
+=======
+				//FileT >> name;
+				//FileT >> description;
+>>>>>>> a80864f90eb31bf817faea7477dc1ccc5d23dcf9
 				size++;
 			}
 			return size;
