@@ -61,10 +61,12 @@ int main(int argc, char const *argv[]) {
 	      cin >> MenuView;
 	      switch(MenuView) {
 	      	case 1:
-						viewE(databaseE, databaseT);
+						MenuView=7;
+						Read_f(databaseT, databaseE,MenuView);
 						break;
 	      	case 2:
-						viewT(databaseT);
+					MenuView=8;
+					Read_f(databaseT, databaseE,MenuView);
 						break;
 					case 3:
 						break;
@@ -77,10 +79,11 @@ int main(int argc, char const *argv[]) {
 			break;
 			}
 			case 3:
-				Time_F(databaseT, databaseE);
+			Read_f(databaseT, databaseE,Menu);
+				//Time_F(databaseT, databaseE);
 				break;
 			case 4:
-			assign( databaseT,  databaseE);
+			Read_f(databaseT, databaseE,Menu);
 				break;
 			case 5:
 	      break;

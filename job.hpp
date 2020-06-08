@@ -42,14 +42,16 @@ class Task {
 			return completness;
 		}
 		void setName(fstream& FileT) {
-			getline(FileT, name);
+			//getline(FileT, name,'\n');
+			FileT>>name;
 		}
 		string getName(fstream& FileT) {
 			setName(FileT);
 			return name;
 		}
 		void setDescr(fstream& FileT) {
-			getline(FileT, description);
+			//getline(FileT, description,'\n');
+			FileT>>description;
 		}
 		string getDescr(fstream& FileT) {
 			setDescr(FileT);
@@ -62,13 +64,8 @@ class Task {
 				FileT >> deadline;
 				FileT >> employee_id;
 				FileT >> completness;
-<<<<<<< HEAD
 				FileT >> name;
 				FileT >> description;
-=======
-				//FileT >> name;
-				//FileT >> description;
->>>>>>> a80864f90eb31bf817faea7477dc1ccc5d23dcf9
 				size++;
 			}
 			return size;
@@ -168,5 +165,4 @@ class Employees {
 			return fin;
 		}*/
 };
-//void assign(Employees * e, Task * t);
-//void test_f(string databaseT, string databaseE, int Menu);
+void Read_f(string databaseT, string databaseE, int Menu);
