@@ -42,16 +42,20 @@ class Task {
 			return completness;
 		}
 		void setName(fstream& FileT) {
-			//getline(FileT, name,'\n');
-			FileT>>name;
+			//FileT.ignore(32767,' ');
+			//FileT.ignore(32767,'\n');
+			getline(FileT, name,' ');
+			//FileT>>name;
 		}
 		string getName(fstream& FileT) {
 			setName(FileT);
 			return name;
 		}
 		void setDescr(fstream& FileT) {
-			//getline(FileT, description,'\n');
-			FileT>>description;
+			//FileT.ignore(32767,' ');
+			//FileT.ignore(32767,'\n');
+			getline(FileT, description);
+			//FileT>>description;
 		}
 		string getDescr(fstream& FileT) {
 			setDescr(FileT);
@@ -70,20 +74,6 @@ class Task {
 			}
 			return size;
 		}
-/*		friend istream& operator>> (istream &fin, Task &t) {
-			cout << "Введите трудоемкость задачи:" << endl;
-			fin >> t.laboriousness;
-			cout << "Введите срок выполнения задачи:" << endl;
-			fin >> t.deadline;
-			t.active = false;
-			t.employee_id = 0;
-			t.completness = 0;
-			cout << "Введите название задачи:" << endl;
-			fin >> t.name;
-			cout << "Опишите задачу:" << endl;
-			fin >> t.description;
-			return fin;
-		}*/
 };
 
 class Employees {
@@ -151,18 +141,5 @@ class Employees {
 			return size;
 		}
 		void setE(string databaseE);
-/*		friend istream& operator>> (istream &fin, Employees &e){
-			cout << "Введите имя сотрудника:" << endl;
-			fin >> e.name;
-			cout << "Введите фамилию сотрудника:" << endl;
-			fin >> e.surname;
-			cout << "Введите отчество сотрудника:" << endl;
-			fin >> e.middlename;
-			cout << "Введите id сотрудника:" << endl;
-			fin >> e.id;
-			cout << "Введите время, которое может отработать сотрудник за неделю:" << endl;
-			fin >> e.time;
-			return fin;
-		}*/
 };
 void Read_f(string databaseT, string databaseE, int Menu);

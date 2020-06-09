@@ -45,7 +45,7 @@ void Task::setT(string databaseT) {
 		cout << "Ошибка открытия файла" << endl;
 		exit(0);
 	}
-	getline(cin,str);
+	cin.ignore(32767,'\n');
 	cout << "Введите название задачи:" << endl;
 	getline (cin, t.name);
 	cout << "Опишите задачу:" << endl;
@@ -178,18 +178,15 @@ void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 				cout<<"---------------"<<endl;
 			}
 		}
+	cin.ignore(32767,'\n');
 	cout << "Введите наименование задачи для присвоения сотруднику: " << endl;
-	cin >> temp;
-	for (i = 0; i < sizeT; i++) {
-		if (temp==nameT[i] && employee_id[i] == 0){
+	getline(cin,temp);
+
 			for (k = 0; k < sizeE; k++) {
 				cout << endl <<"ID: " << id[k]<<' '<<  nameE[k] << ' ' << surname[k] << ' ' << middlename[k] << ' ' << " Часы работы в неделю: " << time[k] << endl;
 				cout<<"---------------"<<endl;
 			}
-		}
-	}
-	cout << "Выберите задачу для присвоения сотруднику: " << endl;
-	cin >> temp;
+
 	for (i = 0; i < sizeT; i++) {
 		if (temp==nameT[i] && employee_id[i] == 0){
 			cout << "Выберите id сотрудника: " << endl;
@@ -351,11 +348,19 @@ void Read_f(string databaseT, string databaseE, int Menu){
 	for (i = 0; i < sizeT; i++) {
 		Task* t = new Task;
 		laboriousness[i] = t->getLab(FileT);
+		//cout<<laboriousness[i];
 		deadline[i] = t->getDeadl(FileT);
+		//cout<<deadline[i];
 		employee_id[i] = t->getEmpId(FileT);
+		//cout<<employee_id[i];
 		completness[i] = t->getCompl(FileT);
-		nameT[i].assign(t->getName(FileT));
-		description[i].assign(t->getDescr(FileT));
+		FileT.ignore(32767,'\n');
+		//FileT.ignore(32767,' ');
+		//cout<<completness[i];
+		nameT[i]=(t->getName(FileT));
+		cout<<nameT[i]<<"nameT";
+		description[i]=(t->getDescr(FileT));
+		cout<<description[i]<<"description";
 		delete t;
 	}
 	for (i = 0; i < sizeE; i++) {

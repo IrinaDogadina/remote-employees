@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "job.hpp"
 using namespace std;
 
@@ -80,15 +81,13 @@ int main(int argc, char const *argv[]) {
 			}
 			case 3:
 			Read_f(databaseT, databaseE,Menu);
-				//Time_F(databaseT, databaseE);
 				break;
 			case 4:
 			Read_f(databaseT, databaseE,Menu);
 				break;
 			case 5:
 	      break;
-			case 6:
-				return 0;
+			case 6:return 0;
 			default:
 				cout << "Ошибка выбора меню" << endl;
 				break;
