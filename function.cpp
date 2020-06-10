@@ -409,6 +409,52 @@ void Read_f(string databaseT, string databaseE, int Menu){
 	if(Menu==7){viewE(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks);}
 	if(Menu==8){viewT(sizeT, laboriousness, deadline, employee_id, completness, nameT,description);}
 	if(Menu==3){Time_F(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks,databaseE,databaseT);}
+	if(Menu==5){Delete_E(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks,databaseE,databaseT);}
 	FileE.close();
 	FileT.close();
+}
+
+void Delete_E(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
+	string surname_del,name_del;
+	cout << "Введите фамилию работника" << endl;
+	cin >> surname_del;
+	cout << "Введите name работника" << endl;
+	cin >> name_del;
+	int i,j,id_del,id_task;
+	for (i=0,i<sizeE,i++) {
+		if (surname_del==surname[i] && name_del==nameE[i]) {
+			id_del=id[i];
+			for (j=0,j<sizeT,j++) {
+				if (employee_id[i]==id_del) {
+					employee[i]=0;
+				}
+			}
+		}
+	}
+	fstream FileTO;
+	FileTO.open(databaseT, ios::trunc | ios::out);
+	fstream FileT1;
+	FileT1.open(databaseE, ios::trunc | ios::out);
+	for (i = 0; i < sizeT; i++){
+		FileTO << laboriousness[i] << endl;
+		FileTO << deadline[i] << endl;
+		FileTO << employee_id[i] << endl;
+		FileTO << completness[i] << endl;
+		FileTO << nameT[i] << endl;
+		FileTO << description[i] << endl;
+	}
+	for (j = 0; j < sizeE; j++){
+		if(id_del!=id[j]) {
+		FileT1 << nameE[j] << endl;
+		FileT1 << surname[j] << endl;
+		FileT1 << middlename[j] << endl;
+		FileT1 << id[j] << endl;
+		FileT1 << time[j] << endl;
+		FileT1 << tasks[j] << endl;
+		}
+	}
+	FileTO.close();
+	FileT1.close();
+	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
+	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 }
