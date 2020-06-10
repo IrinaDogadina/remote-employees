@@ -86,7 +86,8 @@ int main(int argc, char const *argv[]) {
 			Read_f(databaseT, databaseE,Menu);
 				break;
 			case 5:
-	      break;
+			Read_f(databaseT, databaseE,Menu);
+				break;
 			case 6:return 0;
 			default:
 				cout << "Ошибка выбора меню" << endl;
