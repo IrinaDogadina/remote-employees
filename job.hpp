@@ -42,20 +42,14 @@ class Task {
 			return completness;
 		}
 		void setName(fstream& FileT) {
-			//FileT.ignore(32767,' ');
-			//FileT.ignore(32767,'\n');
-			getline(FileT, name,' ');
-			//FileT>>name;
+			getline(FileT, name,'\n');
 		}
 		string getName(fstream& FileT) {
 			setName(FileT);
 			return name;
 		}
 		void setDescr(fstream& FileT) {
-			//FileT.ignore(32767,' ');
-			//FileT.ignore(32767,'\n');
-			getline(FileT, description);
-			//FileT>>description;
+			getline(FileT, description,'\n');
 		}
 		string getDescr(fstream& FileT) {
 			setDescr(FileT);
@@ -68,8 +62,9 @@ class Task {
 				FileT >> deadline;
 				FileT >> employee_id;
 				FileT >> completness;
-				FileT >> name;
-				FileT >> description;
+				FileT.ignore(32767,'\n');
+				getline(FileT,name,'\n');
+				getline(FileT,description,'\n');
 				size++;
 			}
 			return size;

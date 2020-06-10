@@ -2,7 +2,10 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
+/**
+Функция memAllocT для выделения памяти массива задач, прочитанных с файла
+Принимает: массив из переменных класса Task и размер читаемого файла
+*/
 void memAllocT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& name, string*& description){
 	laboriousness = new int[sizeT];
 	deadline = new int[sizeT];
@@ -11,6 +14,10 @@ void memAllocT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id
 	name = new string[sizeT];
 	description = new string[sizeT];
 }
+/**
+Функция memAllocE для выделения памяти массива работников, прочитанных с файла
+Принимает: массив из переменных класса Employees и размер читаемого файла
+*/
 void memAllocE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
 	name = new string[sizeE];
 	surname = new string[sizeE];
@@ -19,6 +26,7 @@ void memAllocE(int sizeE, string*& name, string*& surname, string*& middlename, 
 	time = new int[sizeE];
 	tasks = new int[sizeE];
 }
+///Функция memFreeT для освобождения памяти массива задач, после окончания преобразований над ними и записи в файл
 void memFreeT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& name, string*& description) {
 	delete[] laboriousness;
 	delete[] deadline;
@@ -27,6 +35,7 @@ void memFreeT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id,
 	delete[] name;
 	delete[] description;
 }
+///Функция memFreeE для освобождения памяти массива работников, после окончания преобразований над ними и записи в файл
 void memFreeE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
 	delete[] name;
 	delete[] surname;
@@ -35,7 +44,10 @@ void memFreeE(int sizeE, string*& name, string*& surname, string*& middlename, i
 	delete[] time;
 	delete[] tasks;
 }
-
+/**Функция Task::setT класса Task, которая записывает в файл новые объекты класса,
+ используя приватные переменные name, description,laboriousness,deadline
+ Принимает: имя файла, из которого читает значения
+ */
 void Task::setT(string databaseT) {
 	string str;
 	Task t;
@@ -67,7 +79,12 @@ void Task::setT(string databaseT) {
 	File << t.description << endl;
 	File.close();
 }
-
+/**Функция Employees::setE класса Employees, которая записывает в файл новые объекты класса,
+ 	используя приватные переменные name, surname,middlename,id,time,tasks
+ 	id работника проставляется в зависимости от колличества уже имеющихся работников,
+	расчитывается от количества строк в файле
+	Принимает: имя файла, из которого читает значения
+ */
 void Employees::setE(string databaseE) {
 	fstream FileE;
 	FileE.open(databaseE, ios::app | ios::in);
@@ -123,7 +140,11 @@ void Employees::setE(string databaseE) {
   FileE.close();
 	memFreeE(size, nameE, surname, middlename, id, time, tasks);
 }
-
+/**
+	Функция viewE, которая выводит уже считанный массив работников,
+	и задач, которые за ними закреплены
+	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
+*/
 void viewE(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks)
 {
 	int i,j;
@@ -145,7 +166,10 @@ void viewE(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, in
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
 	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 }
-
+/**
+	Функция viewT, которая выводит уже считанный массив задач
+	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
+*/
 void viewT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description){
 
 	int i,j;
@@ -154,15 +178,20 @@ void viewT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, in
 			if (employee_id[i] == 0) {
 				cout << "Название задачи: " << nameT[i] << endl;
 				cout << "Описание задачи: " << description[i] << endl;
-				cout << endl << "Трудоемкость: " << laboriousness[i] << " суток" << endl;
-				cout << "Срок выполнения: " << deadline [i] << " суток" << endl;
+				cout << endl << "Трудоемкость: " << laboriousness[i] << " часов" << endl;
+				cout << "Срок выполнения: " << deadline [i] << " часов" << endl;
 				cout << "Степень готовности: " << completness[i] << "%" << endl;
 				cout<<"-----------"<<endl;
 			}
 		}
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
 }
-
+/**
+	Функция assign присваевает свободную задачу сотруднику,
+	просчитывая возможность выполнения этой задачи в указанные сроки
+	После работы данной функции в файле задач будет изменен показатель занятости задачи
+	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
+*/
 void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks,string databaseE,string databaseT)
  {
 	string temp; int temp_id;
@@ -265,7 +294,11 @@ void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
 	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 }
-
+/**
+	Функция Time_F позволяет расчитать готовность выполнения задачи по прошествии недели
+	В файле изменяется показатель готовности задачи
+	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
+*/
 void Time_F(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks,string databaseE,string databaseT){
 	int week = 168;
 	cout << "Прошла неделя" << endl;
@@ -300,6 +333,9 @@ void Time_F(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 		FileT0 << deadline[i] << endl;
 		FileT0 << employee_id[i] << endl;
 		FileT0 << completness[i] << endl;
+		FileT0 << nameT[i]<<endl;
+		FileT0 << description[i]<<endl;
+
 	}
 	for (j = 0; j < sizeE; j++){
 		FileT1 << nameE[j] << endl;
@@ -315,7 +351,10 @@ void Time_F(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 	FileT1.close();
 }
 
-
+/**
+Функция Read_f читает все массивы из файлов и в зависимости от выбора меню вызывает необходимую функцию
+Принимает: наименования файлов для чтения, выбор меню
+*/
 void Read_f(string databaseT, string databaseE, int Menu){
 	fstream FileT;
 	FileT.open(databaseT, ios::app | ios::in);
@@ -348,19 +387,12 @@ void Read_f(string databaseT, string databaseE, int Menu){
 	for (i = 0; i < sizeT; i++) {
 		Task* t = new Task;
 		laboriousness[i] = t->getLab(FileT);
-		//cout<<laboriousness[i];
 		deadline[i] = t->getDeadl(FileT);
-		//cout<<deadline[i];
 		employee_id[i] = t->getEmpId(FileT);
-		//cout<<employee_id[i];
 		completness[i] = t->getCompl(FileT);
 		FileT.ignore(32767,'\n');
-		//FileT.ignore(32767,' ');
-		//cout<<completness[i];
 		nameT[i]=(t->getName(FileT));
-		cout<<nameT[i]<<"nameT";
 		description[i]=(t->getDescr(FileT));
-		cout<<description[i]<<"description";
 		delete t;
 	}
 	for (i = 0; i < sizeE; i++) {
