@@ -2,9 +2,16 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-/**
-Функция memAllocT для выделения памяти массива задач, прочитанных с файла
-Принимает: массив из переменных класса Task и размер читаемого файла
+
+/*!
+@brief MemAllocT - метод для выделения памяти на массивы переменных задач, прочитанных с файла
+@param sizeT - параметр с количеством классов в файле
+@param laboriousness - массив с целочисленными переменными трудоемкости задач
+@param deadline - массив с целочисленными переменными сроков задач
+@param employee_id - массив с целочисленными переменными ID сотрудников, которые выполняют задачи
+@param completness - массив с целочисленными переменными степени готовности задач
+@param name - массив строк названий задач
+@param description - массив строк описаний задач
 */
 void memAllocT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& name, string*& description){
 	laboriousness = new int[sizeT];
@@ -14,9 +21,16 @@ void memAllocT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id
 	name = new string[sizeT];
 	description = new string[sizeT];
 }
-/**
-Функция memAllocE для выделения памяти массива работников, прочитанных с файла
-Принимает: массив из переменных класса Employees и размер читаемого файла
+
+/*!
+@brief MemAllocE - метод для выделения памяти на массивы переменных сотрудников, прочитанных с файла
+@param sizeE - параметр с количеством классов в файле
+@param name - массив строк имен сотрудников
+@param surname - массив строк фамилий сотрудников
+@param middlename - массив строк отчеств сотрудников
+@param id - массив с целочисленными переменными ID сотрудников
+@param time - массив с целочисленными переменными рабочего времени сотрдуников
+@param tasks - массив с целочисленными переменными количества задач на сотрудниках
 */
 void memAllocE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
 	name = new string[sizeE];
@@ -26,7 +40,17 @@ void memAllocE(int sizeE, string*& name, string*& surname, string*& middlename, 
 	time = new int[sizeE];
 	tasks = new int[sizeE];
 }
-///Функция memFreeT для освобождения памяти массива задач, после окончания преобразований над ними и записи в файл
+
+/*!
+@brief MemFreeT - метод для освобождения памяти от массивов переменных задач
+@param sizeT - параметр с количеством классов в файле
+@param laboriousness - массив с целочисленными переменными трудоемкости задач
+@param deadline - массив с целочисленными переменными сроков задач
+@param employee_id - массив с целочисленными переменными ID сотрудников, которые выполняют задачи
+@param completness - массив с целочисленными переменными степени готовности задач
+@param name - массив строк названий задач
+@param description - массив строк описаний задач
+*/
 void memFreeT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& name, string*& description) {
 	delete[] laboriousness;
 	delete[] deadline;
@@ -35,7 +59,17 @@ void memFreeT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id,
 	delete[] name;
 	delete[] description;
 }
-///Функция memFreeE для освобождения памяти массива работников, после окончания преобразований над ними и записи в файл
+
+/*!
+@brief MemFreeE - метод для освобождения памяти от массивов переменных сотрудников
+@param sizeE - параметр с количеством классов в файле
+@param name - массив строк имен сотрудников
+@param surname - массив строк фамилий сотрудников
+@param middlename - массив строк отчеств сотрудников
+@param id - массив с целочисленными переменными ID сотрудников
+@param time - массив с целочисленными переменными рабочего времени сотрдуников
+@param tasks - массив с целочисленными переменными количества задач на сотрудниках
+*/
 void memFreeE(int sizeE, string*& name, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
 	delete[] name;
 	delete[] surname;
@@ -44,10 +78,7 @@ void memFreeE(int sizeE, string*& name, string*& surname, string*& middlename, i
 	delete[] time;
 	delete[] tasks;
 }
-/**Функция Task::setT класса Task, которая записывает в файл новые объекты класса,
- используя приватные переменные name, description,laboriousness,deadline
- Принимает: имя файла, из которого читает значения
- */
+
 void Task::setT(string databaseT) {
 	string str;
 	Task t;
@@ -79,12 +110,7 @@ void Task::setT(string databaseT) {
 	File << t.description << endl;
 	File.close();
 }
-/**Функция Employees::setE класса Employees, которая записывает в файл новые объекты класса,
- 	используя приватные переменные name, surname,middlename,id,time,tasks
- 	id работника проставляется в зависимости от колличества уже имеющихся работников,
-	расчитывается от количества строк в файле
-	Принимает: имя файла, из которого читает значения
- */
+
 void Employees::setE(string databaseE) {
 	fstream FileE;
 	FileE.open(databaseE, ios::app | ios::in);
@@ -140,13 +166,25 @@ void Employees::setE(string databaseE) {
   FileE.close();
 	memFreeE(size, nameE, surname, middlename, id, time, tasks);
 }
-/**
-	Функция viewE, которая выводит уже считанный массив работников,
-	и задач, которые за ними закреплены
-	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
+
+/*!
+@brief viewE - метод вывода в консоль всех сотрудников и задач, которые они выполняют
+@param sizeT - параметр с количеством классов в файле
+@param laboriousness - массив с целочисленными переменными трудоемкости задач
+@param deadline - массив с целочисленными переменными сроков задач
+@param employee_id - массив с целочисленными переменными ID сотрудников, которые выполняют задачи
+@param completness - массив с целочисленными переменными степени готовности задач
+@param name - массив строк названий задач
+@param description - массив строк описаний задач
+@param sizeE - параметр с количеством классов в файле
+@param name - массив строк имен сотрудников
+@param surname - массив строк фамилий сотрудников
+@param middlename - массив строк отчеств сотрудников
+@param id - массив с целочисленными переменными ID сотрудников
+@param time - массив с целочисленными переменными рабочего времени сотрдуников
+@param tasks - массив с целочисленными переменными количества задач на сотрудниках
 */
-void viewE(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks)
-{
+void viewE(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description, int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks){
 	int i,j;
 	for (i = 0; i < sizeE; i++) {
 		cout << endl << nameE[i] << ' ' << surname[i] << ' ' << middlename[i] << ' ' << "ID: " << id[i] << " Часы работы в неделю: " << time[i] << endl;
@@ -166,9 +204,16 @@ void viewE(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, in
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
 	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 }
-/**
-	Функция viewT, которая выводит уже считанный массив задач
-	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
+
+/*!
+@brief viewT - метод вывода в консоль всех свободных задач
+@param sizeT - параметр с количеством классов в файле
+@param laboriousness - массив с целочисленными переменными трудоемкости задач
+@param deadline - массив с целочисленными переменными сроков задач
+@param employee_id - массив с целочисленными переменными ID сотрудников, которые выполняют задачи
+@param completness - массив с целочисленными переменными степени готовности задач
+@param name - массив строк названий задач
+@param description - массив строк описаний задач
 */
 void viewT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description){
 
@@ -186,17 +231,30 @@ void viewT(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, in
 		}
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
 }
-/**
-	Функция assign присваевает свободную задачу сотруднику,
-	просчитывая возможность выполнения этой задачи в указанные сроки
-	После работы данной функции в файле задач будет изменен показатель занятости задачи
-	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
-*/
-void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks,string databaseE,string databaseT)
- {
-	string temp; int temp_id;
-	int i, j, k;
 
+/*!
+@brief assign - метод назначения задачи сотруднику. Выполняет проверку возможности сотрудника выполнить задачу
+@param sizeT - параметр с количеством классов в файле
+@param laboriousness - массив с целочисленными переменными трудоемкости задач
+@param deadline - массив с целочисленными переменными сроков задач
+@param employee_id - массив с целочисленными переменными ID сотрудников, которые выполняют задачи
+@param completness - массив с целочисленными переменными степени готовности задач
+@param name - массив строк названий задач
+@param description - массив строк описаний задач
+@param sizeE - параметр с количеством классов в файле
+@param name - массив строк имен сотрудников
+@param surname - массив строк фамилий сотрудников
+@param middlename - массив строк отчеств сотрудников
+@param id - массив с целочисленными переменными ID сотрудников
+@param time - массив с целочисленными переменными рабочего времени сотрдуников
+@param tasks - массив с целочисленными переменными количества задач на сотрудниках
+@param databaseE - параметр с названием файла с сотрудниками
+@param databaseT - параметр с названием файла с задачами
+*/
+void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks, string databaseE, string databaseT){
+	string temp;
+	int temp_id;
+	int i, j, k;
 	for (i = 0; i < sizeT; i++) {
 			if (employee_id[i] == 0) {
 				cout << "Название задачи: " << nameT[i] << endl;
@@ -222,9 +280,14 @@ void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 			cin >> temp_id;
 			for (j = 0; j < sizeE; j++){
 				if (temp_id == id[j]){
+					/*!
+					@brief проверка возможности выполнения задачи сотрудником
+					@brief если срок и трудоемкость задачи превышает одну неделю,
+					@brief то из обоих переменных вычитается количество недель, а также ведется счетчик недель
+					*/
 					int count = 0;
 					int ddl = deadline[i];
-					if (ddl > 168){
+					if (ddl > 168 && laboriousness[i] > time[j]){
 						while (ddl > 0){
 							ddl = ddl-168;
 							count++;
@@ -233,8 +296,18 @@ void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 					else {
 						count = 1;
 					}
+					/*!
+					@brief если срок задачи больше или равно, чем трудоемкость задачи после выполнения ее сотрудником спустя n количество недель
+					@brief и если трудоемкость задачи после выполнения ее сотрудником спустя n количество недель меньше или равна нулю
+					@brief то задача не назначается
+					*/
 					if (ddl >= (laboriousness[i]-((time[j]*count)/(tasks[j]+1))) && ((laboriousness[i]-((time[j]*count)/(tasks[j]+1))) <= 0)){
 						int a = 0;
+						/*!
+						@brief если сотрудник успеет выполнить назначаемую задачу,
+						@brief то проверяется возможность выполнения уже назначенных задач по той же схеме
+						@brief если сотрудник не успеет выполнить уже назначенные задачи, то назначаемая задача не назначается
+						*/
 						if (tasks[j] != 0){
 							for (k = 0; k < sizeT; k++){
 								if (employee_id[k] == temp_id) {
@@ -294,18 +367,40 @@ void assign(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
 	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 }
-/**
-	Функция Time_F позволяет расчитать готовность выполнения задачи по прошествии недели
-	В файле изменяется показатель готовности задачи
-	Принимает: массивы из объектов класса Task и Employees и размеры этих массивов
+
+/*!
+@brief Time_F - метод пересчета степени готовности задач на сотрудниках спустя неделю
+@param sizeT - параметр с количеством классов в файле
+@param laboriousness - массив с целочисленными переменными трудоемкости задач
+@param deadline - массив с целочисленными переменными сроков задач
+@param employee_id - массив с целочисленными переменными ID сотрудников, которые выполняют задачи
+@param completness - массив с целочисленными переменными степени готовности задач
+@param name - массив строк названий задач
+@param description - массив строк описаний задач
+@param sizeE - параметр с количеством классов в файле
+@param name - массив строк имен сотрудников
+@param surname - массив строк фамилий сотрудников
+@param middlename - массив строк отчеств сотрудников
+@param id - массив с целочисленными переменными ID сотрудников
+@param time - массив с целочисленными переменными рабочего времени сотрдуников
+@param tasks - массив с целочисленными переменными количества задач на сотрудниках
+@param databaseE - параметр с названием файла с сотрудниками
+@param databaseT - параметр с названием файла с задачами
 */
-void Time_F(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks,string databaseE,string databaseT){
+void Time_F(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks, string databaseE, string databaseT){
 	int week = 168;
 	cout << "Прошла неделя" << endl;
 	int i,j;
 	for (i = 0; i < sizeE; i++){
 		if (tasks[i] != 0){
 			for (j = 0; j < sizeT; j++){
+				/*!
+				@brief перерасчет степени готовности, срока, трудоемкости задач спустя неделю
+				@brief из трудоемкости вычитается рабочее время работника деленное на количество задач сотрудника
+				@brief из срока вычитается неделя
+				@brief степень готовности считается от вычтенной трудоемкости к первоначальной
+				@brief при завершении задач задачам присваивается нулевой срок, трудоемкость, уменьшается количество задач на сотруднике
+				*/
 				 if (employee_id[j] != 0 && employee_id[j] == id[i] && completness[j] != 100 && laboriousness != 0){
 					int count = laboriousness[j]-(time[i]/tasks[i]);
 					completness[j] += (count*100)/laboriousness[j];
@@ -351,9 +446,77 @@ void Time_F(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, i
 	FileT1.close();
 }
 
-/**
-Функция Read_f читает все массивы из файлов и в зависимости от выбора меню вызывает необходимую функцию
-Принимает: наименования файлов для чтения, выбор меню
+/*!
+@brief Delete_E - метод удаления определенного сотрудника из файла с сотрудниками
+@param sizeT - параметр с количеством классов в файле
+@param laboriousness - массив с целочисленными переменными трудоемкости задач
+@param deadline - массив с целочисленными переменными сроков задач
+@param employee_id - массив с целочисленными переменными ID сотрудников, которые выполняют задачи
+@param completness - массив с целочисленными переменными степени готовности задач
+@param name - массив строк названий задач
+@param description - массив строк описаний задач
+@param sizeE - параметр с количеством классов в файле
+@param name - массив строк имен сотрудников
+@param surname - массив строк фамилий сотрудников
+@param middlename - массив строк отчеств сотрудников
+@param id - массив с целочисленными переменными ID сотрудников
+@param time - массив с целочисленными переменными рабочего времени сотрдуников
+@param tasks - массив с целочисленными переменными количества задач на сотрудниках
+@param databaseE - параметр с названием файла с сотрудниками
+@param databaseT - параметр с названием файла с задачами
+*/
+void Delete_E(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks, string databaseE, string databaseT) {
+	string surname_del, name_del;
+	cout << "Введите фамилию работника" << endl;
+	cin >> surname_del;
+	cout << "Введите имя работника" << endl;
+	cin >> name_del;
+	int i, j, id_del, id_task;
+	for (i = 0; i < sizeE; i++) {
+		if (surname_del==surname[i] && name_del==nameE[i]) {
+			id_del = id[i];
+			for (j = 0; j < sizeT; j++) {
+				if (employee_id[j] == id_del) {
+					employee_id[j] = 0;
+				}
+			}
+		}
+	}
+	fstream FileTO;
+	FileTO.open(databaseT, ios::trunc | ios::out);
+	fstream FileT1;
+	FileT1.open(databaseE, ios::trunc | ios::out);
+	for (i = 0; i < sizeT; i++){
+		if (completness[i] != 100){
+			FileTO << laboriousness[i] << endl;
+			FileTO << deadline[i] << endl;
+			FileTO << employee_id[i] << endl;
+			FileTO << completness[i] << endl;
+			FileTO << nameT[i] << endl;
+			FileTO << description[i] << endl;
+		}
+	}
+	for (j = 0; j < sizeE; j++){
+		if (id_del != id[j]) {
+			FileT1 << nameE[j] << endl;
+			FileT1 << surname[j] << endl;
+			FileT1 << middlename[j] << endl;
+			FileT1 << id[j] << endl;
+			FileT1 << time[j] << endl;
+			FileT1 << tasks[j] << endl;
+		}
+	}
+	FileTO.close();
+	FileT1.close();
+	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
+	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
+}
+
+/*!
+@brief Read_f - метод предварительных операций: открывает файлы, читает данные из них в массивы, вызывает дальнейшую функцию, передавая все массивы
+@param databaseE - параметр с названием файла с сотрудниками
+@param databaseT - параметр с названием файла с задачами
+@param Menu - целочисленная переменная выбора меню для вызова дальнейшей функции
 */
 void Read_f(string databaseT, string databaseE, int Menu){
 	fstream FileT;
@@ -405,56 +568,11 @@ void Read_f(string databaseT, string databaseE, int Menu){
 		tasks[i] = e->getTime(FileE);
 		delete e;
 	}
-	if(Menu==4){assign(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks,databaseE,databaseT);}
+	if(Menu==4){assign(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks, databaseE, databaseT);}
 	if(Menu==7){viewE(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks);}
 	if(Menu==8){viewT(sizeT, laboriousness, deadline, employee_id, completness, nameT,description);}
-	if(Menu==3){Time_F(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks,databaseE,databaseT);}
-	if(Menu==5){Delete_E(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks,databaseE,databaseT);}
+	if(Menu==3){Time_F(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks, databaseE, databaseT);}
+	if(Menu==5){Delete_E(sizeT, laboriousness, deadline, employee_id, completness, nameT, description, sizeE, nameE, surname, middlename, id, time, tasks, databaseE, databaseT);}
 	FileE.close();
 	FileT.close();
-}
-
-void Delete_E(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks) {
-	string surname_del,name_del;
-	cout << "Введите фамилию работника" << endl;
-	cin >> surname_del;
-	cout << "Введите name работника" << endl;
-	cin >> name_del;
-	int i,j,id_del,id_task;
-	for (i=0,i<sizeE,i++) {
-		if (surname_del==surname[i] && name_del==nameE[i]) {
-			id_del=id[i];
-			for (j=0,j<sizeT,j++) {
-				if (employee_id[i]==id_del) {
-					employee[i]=0;
-				}
-			}
-		}
-	}
-	fstream FileTO;
-	FileTO.open(databaseT, ios::trunc | ios::out);
-	fstream FileT1;
-	FileT1.open(databaseE, ios::trunc | ios::out);
-	for (i = 0; i < sizeT; i++){
-		FileTO << laboriousness[i] << endl;
-		FileTO << deadline[i] << endl;
-		FileTO << employee_id[i] << endl;
-		FileTO << completness[i] << endl;
-		FileTO << nameT[i] << endl;
-		FileTO << description[i] << endl;
-	}
-	for (j = 0; j < sizeE; j++){
-		if(id_del!=id[j]) {
-		FileT1 << nameE[j] << endl;
-		FileT1 << surname[j] << endl;
-		FileT1 << middlename[j] << endl;
-		FileT1 << id[j] << endl;
-		FileT1 << time[j] << endl;
-		FileT1 << tasks[j] << endl;
-		}
-	}
-	FileTO.close();
-	FileT1.close();
-	memFreeT(sizeT, laboriousness, deadline, employee_id, completness, nameT, description);
-	memFreeE(sizeE, nameE, surname, middlename, id, time, tasks);
 }
