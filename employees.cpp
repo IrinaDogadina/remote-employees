@@ -28,7 +28,7 @@ int Employees::setSize(fstream& FileE){
 }
 
 void Employees::setE(string databaseE) {
-  Employees* e;
+  //Employees* e;
 	fstream FileE;
 	FileE.open(databaseE, ios::app | ios::in);
 	if (!(FileE.is_open())){
@@ -36,43 +36,60 @@ void Employees::setE(string databaseE) {
 		exit(0);
 	}
   //использовать сетсайз для размера
+  string str;
+	int sizeE=0; int i=0;
+	while(getline(FileE,str)){sizeE++;}
+  sizeE=(sizeE)/6;
+  cout<<sizeE;
+  FileE.clear();
+  FileE.seekg(0);
+  Employees* e= new Employees[sizeE+1];
   //написать функцию ввода из файла
+  for(i=0;i<sizeE;i++){
+    FileE>>e[i].surname;
+    FileE>>e[i].name;
+    FileE>>e[i].middlename;
+    FileE>>e[i].id;
+    FileE>>e[i].time;
+    FileE>>e[i].tasks;
+  }
+
 	cout << "Введите фамилию сотрудника:" << endl;
-	cin >> e[size].setSurname;
+	cin >> e[sizeE].surname;
 	cout << "Введите имя сотрудника:" << endl;
-	cin >> e[size].name;
+	cin >> e[sizeE].name;
 	cout << "Введите отчество сотрудника:" << endl;
-	cin >> e[size].middlename;
+	cin >> e[sizeE].middlename;
 	cout << "Введите время, которое может отработать сотрудник за неделю:" << endl;
-	cin >> e[size].time;
+	cin >> e[sizeE].time;
   FileE.close();
   fstream File2;
-	File2.open(databaseE, ios::app | ios::in | ios::trunc);
-  if (size == 0){
-    FileE << e[size].name << endl;
-		FileE << e[size].surname << endl;
-		FileE << e[size].middlename << endl;
-		FileE << '1' << endl;
-		FileE << e[size].time << endl;
-		FileE << '0' << endl;
+	File2.open(databaseE,  ios::out |ios::trunc);
+  if (sizeE == 0){
+    File2 << e[sizeE].name << endl;
+		File2 << e[sizeE].surname << endl;
+		File2 << e[sizeE].middlename << endl;
+		File2 << '1' << endl;
+		File2 << e[sizeE].time << endl;
+		File2 << '0' << endl;
   }
   else {
-    FileE << size;
-    for (int i; i < size++; i++){
-  		FileE << e[i].name << endl;
-  		FileE << e[i].surname << endl;
-  		FileE << e[i].middlename << endl;
-      if (i == size){
+    //File2 << sizeE;
+    for (i=0; i < sizeE+1; i++){
+  		File2 << e[i].name << endl;
+  		File2 << e[i].surname << endl;
+  		File2 << e[i].middlename << endl;
+      if (i == sizeE){
         e[i].id = e[i-1].id++;
-        FileE << e[i].id << endl;
+        File2 << e[i].id << endl;
       }
   		else {
-        FileE << e[i].id << endl;
+        File2 << e[i].id << endl;
       }
-  		FileE << e[i].time << endl;
-  		FileE << '0' << endl;
+  		File2 << e[i].time << endl;
+  		File2 << '0' << endl;
     }
   }
+  File2.close();
 	delete[] e;
-  FileE.close();
 }

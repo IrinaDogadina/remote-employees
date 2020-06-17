@@ -52,7 +52,7 @@ void Task::setT(string databaseT){
   File << t.name << endl;
   File << t.description << endl;
   File.close();
-  delete t;
+  //delete t;
 }
 
 void Task::viewT(string databaseT){
@@ -62,10 +62,25 @@ void Task::viewT(string databaseT){
     cout << "Ошибка открытия файла" << endl;
     exit(0);
   }
-  Task* t = new Task[sizeT];
+  //Task* t = new Task[sizeT];
   int i;
   //использовать сетсайз для размера
+  string str;
+	int sizeT=0;
+	while(getline(FileT,str)){sizeT++;}
+  sizeT=(sizeT)/5;
+  Task* t = new Task[sizeT];
+	FileT.clear();
+	FileT.seekg(0);
   //написать функцию ввода из файла
+  for(i=0;i<sizeT;i++){
+    FileT>>t[i].laboriousness;
+    FileT>>t[i].deadline;
+    FileT>>t[i].employee_id;
+    FileT>>t[i].completness;
+    FileT>>t[i].name;
+    FileT>>t[i].description;
+  }
   cout << "Свободные задачи:" << endl;
   for (i = 0; i < sizeT; i++) {
       if (t[i].employee_id == 0) {

@@ -25,6 +25,8 @@ void Interface::viewE(int sizeT, int sizeE){
 }
 
 void Interface::assign(int sizeT, int sizeE, string databaseT, string databaseE){
+	Employees* e;
+	Task* t;
 	string temp;
 	int temp_id;
 	int i, j, k;
@@ -261,12 +263,58 @@ void Interface::Read_f(string databaseT, string databaseE, int Menu){
 		exit(0);
 	}
 	//использовать сетсайз для размера
+	string str;
+	int sizeT=0, sizeE=0;
+	int i=0;
+	while(getline(FileT,str)){sizeT++;}
+  sizeT=(sizeT)/5;
+  Task* t = new Task[sizeT];
+	FileT.clear();
+	FileT.seekg(0);
   //написать функцию ввода из файла
+	int lab_t,deadl_t,emp_id_t,compl_t;
+	string name_task,descr_task;
+  for(i=0;i<sizeT;i++){
+		FileT >> lab_t;
+		t[i].setLab(lab_t);
+    FileT >> deadl_t;
+		t[i].setDeadl(deadl_t);
+		FileT >> emp_id_t;
+		t[i].setEmpId(emp_id_t);
+		FileT >> compl_t;
+		t[i].setCompl(compl_t);
+		FileT >> name_task;
+		t[i].setName(name_task);
+		FileT >> descr_task;
+		t[i].setDescr(descr_task);
+  }
+	FileT.close();
+	while(getline(FileE,str)){sizeE++;}
+	sizeE=(sizeE)/6;
+	FileE.clear();
+	FileE.seekg(0);
+	Employees* e= new Employees[sizeE];
+	string name_e,surname_e,middlename_e;
+	int id_e,time_e,tasks_e;
+	//написать функцию ввода из файла
+	for(i=0;i<sizeE;i++){
+		FileE << name_e;
+		e[i].setName(name_e);
+		FileE << surname_e;
+		e[i].setSurname(surname_e);
+		FileE << middlename_e;
+		e[i].setMiddName(middlename_e);
+		FileE << id_e;
+		e[i].setId(id_e);
+		FileE <<time_e;
+		 e[i].setTime(time_e);
+		FileE << tasks_e;
+		e[i].setTasks(tasks_e);
+	}
+	FileE.close();
 	Interface in;
 	if(Menu==4){in.assign(sizeT, sizeE, databaseT, databaseE);}
 	if(Menu==7){in.viewE(sizeT, sizeE);}
 	if(Menu==3){in.Time_F(sizeT, sizeE, databaseT, databaseE);}
 	if(Menu==5){in.Delete_E(sizeT, sizeE, databaseT, databaseE);}
-	FileE.close();
-	FileT.close();
 }
