@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=main.cpp function.cpp
+SOURCES=main.cpp task.cpp employees.cpp interface.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=laba2
 

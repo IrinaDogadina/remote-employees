@@ -1,15 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "job.hpp"
+#include "interface.hpp"
 using namespace std;
-
-void viewE(string databaseE, string databaseT);
-void viewT(string databaseT);
-void assign(string databaseT, string databaseE);
-void Time_F(string databaseT, string databaseE);
-void Delete_E(int sizeT, int*& laboriousness, int*& deadline, int*& employee_id, int*& completness, string*& nameT, string*& description,int sizeE, string*& nameE, string*& surname, string*& middlename, int*& id, int*& time, int*& tasks);
-void Read_f(string databaseT, string databaseE, int Menu);
 
 int main(int argc, char const *argv[]) {
 	if (argc != 3) {
@@ -36,9 +29,8 @@ int main(int argc, char const *argv[]) {
 				cin >> MenuAdd;
 				switch(MenuAdd) {
 					case 1: {
-						Employees* e = new Employees;
-						e->setE(databaseE);
-						delete e;
+						Employees e;
+						e.setE(databaseE);
 						break;
 					}
 					case 2: {
@@ -63,14 +55,17 @@ int main(int argc, char const *argv[]) {
 				cout << "3. Вернуться" << endl;
 	      cin >> MenuView;
 	      switch(MenuView) {
-	      	case 1:
-						MenuView=7;
-						Read_f(databaseT, databaseE, MenuView);
+	      	case 1: {
+						Interface i;
+						MenuView = 7;
+						i.Read_f(databaseT, databaseE, MenuView);
 						break;
-	      	case 2:
-						MenuView=8;
-						Read_f(databaseT, databaseE, MenuView);
+					}
+	      	case 2: {
+						Task t;
+						t.viewT(databaseT);
 						break;
+					}	
 					case 3:
 						break;
 					default: {
@@ -82,13 +77,14 @@ int main(int argc, char const *argv[]) {
 			break;
 			}
 			case 3:
-				Read_f(databaseT, databaseE, Menu);
+				Interface i;
+				i.Read_f(databaseT, databaseE, Menu);
 				break;
 			case 4:
-				Read_f(databaseT, databaseE, Menu);
+				i.Read_f(databaseT, databaseE, Menu);
 				break;
 			case 5:
-				Read_f(databaseT, databaseE, Menu);
+				i.Read_f(databaseT, databaseE, Menu);
 				break;
 			case 6:
 				return 0;
