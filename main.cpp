@@ -29,8 +29,9 @@ int main(int argc, char const *argv[]) {
 				cin >> MenuAdd;
 				switch(MenuAdd) {
 					case 1: {
-						Employees e;
-						e.setE(databaseE);
+						Employees* e = new Employees;
+						e->setE(databaseE);
+						delete e;
 						break;
 					}
 					case 2: {
@@ -56,8 +57,8 @@ int main(int argc, char const *argv[]) {
 	      cin >> MenuView;
 	      switch(MenuView) {
 	      	case 1: {
-						Interface i;
 						MenuView = 7;
+						Interface i;
 						i.Read_f(databaseT, databaseE, MenuView);
 						break;
 					}
@@ -65,7 +66,7 @@ int main(int argc, char const *argv[]) {
 						Task t;
 						t.viewT(databaseT);
 						break;
-					}	
+					}
 					case 3:
 						break;
 					default: {

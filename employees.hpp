@@ -37,88 +37,76 @@ class Employees {
 		///@param databaseE - параметр с названием файла с сотрудниками
 		void setE(string databaseE);
 
-		///@brief setName - метод считывающий из файла переменную имени сотрудника из файла в класс
+    ///@brief setTasks - метод считывающий из файла переменную количества задач на сотруднике из файла в класс
 		///@param FileE - поток файла сотрудников
-		void setName(fstream& FileE) {
-			FileE >> name;
+		void setName(string param) {
+			name = param;
 		}
 
-		///@brief getName - метод возвращающий переменную имени сотрудника
-		///@param FileE - поток файла сотрудников
+    ///@brief getName - метод возвращающий переменную имени сотрудника
 		///@return description - переменная имени сотрудника
-		string getName(fstream& FileE) {
-			setName(FileE);
-			return name;
+    string getName() {
+      return name;
 		}
 
-		///@brief setSurname - метод считывающий из файла переменную фамилии сотрудника из файла в класс
+    ///@brief setTasks - метод считывающий из файла переменную количества задач на сотруднике из файла в класс
 		///@param FileE - поток файла сотрудников
-		void setSurname(fstream& FileE) {
-			FileE >> surname;
+		void setSurname(string param) {
+			surname = param;
 		}
 
-		///@brief getSurname - метод возвращающий переменную фамилии сотрудника
-		///@param FileE - поток файла сотрудников
+    ///@brief getSurname - метод возвращающий переменную фамилии сотрудника
 		///@return description - переменная фамилии сотрудника
-		string getSurname(fstream& FileE) {
-			setSurname(FileE);
-			return surname;
+		string getSurname() {
+      return surname;
 		}
 
-		///@brief setMiddName - метод считывающий из файла переменную отчества сотрудника из файла в класс
+    ///@brief setTasks - метод считывающий из файла переменную количества задач на сотруднике из файла в класс
 		///@param FileE - поток файла сотрудников
-		void setMiddName(fstream& FileE) {
-			FileE >> middlename;
+		void setMiddName(string param) {
+			middlename = param;
 		}
 
-		///@brief getMiddName - метод возвращающий переменную отчества сотрудника
-		///@param FileE - поток файла сотрудников
+    ///@brief getMiddName - метод возвращающий переменную отчества сотрудника
 		///@return description - переменная отчества сотрудника
-		string getMiddName(fstream& FileE) {
-			setMiddName(FileE);
-			return middlename;
+		string getMiddName() {
+      return middlename;
 		}
 
-		///@brief setId - метод считывающий из файла переменную ID сотрудника из файла в класс
+    ///@brief setTasks - метод считывающий из файла переменную количества задач на сотруднике из файла в класс
 		///@param FileE - поток файла сотрудников
-		void setId(fstream& FileE) {
-			FileE >> id;
+		void setId(int param) {
+			id = param;
 		}
 
-		///@brief getId - метод возвращающий переменную ID сотрудника
-		///@param FileE - поток файла сотрудников
+    ///@brief getId - метод возвращающий переменную ID сотрудника
 		///@return description - переменная ID сотрудника
-		int getId(fstream& FileE) {
-			setId(FileE);
-			return id;
+		int getId() {
+      return id;
 		}
 
-		///@brief setTime - метод считывающий из файла переменную рабочего времени сотрудника из файла в класс
+    ///@brief setTasks - метод считывающий из файла переменную количества задач на сотруднике из файла в класс
 		///@param FileE - поток файла сотрудников
-		void setTime(fstream& FileE) {
-			FileE >> time;
+		void setTime(int param) {
+			time = param;
 		}
 
-		///@brief getTime - метод возвращающий переменную рабочего времени сотрудника
-		///@param FileE - поток файла сотрудников
+    ///@brief getTime - метод возвращающий переменную рабочего времени сотрудника
 		///@return description - переменная рабочего времени сотрудника
-		int getTime(fstream& FileE) {
-			setTime(FileE);
-			return time;
+		int getTime() {
+      return time;
 		}
 
 		///@brief setTasks - метод считывающий из файла переменную количества задач на сотруднике из файла в класс
 		///@param FileE - поток файла сотрудников
-		void setTasks(fstream& FileE) {
-			FileE >> tasks;
+		void setTasks(int param) {
+			tasks = param;
 		}
 
-		///@brief getTasks - метод возвращающий переменную количества задач на сотруднике
-		///@param FileE - поток файла сотрудников
+    ///@brief getTasks - метод возвращающий переменную количества задач на сотруднике
 		///@return description - переменная количества задач на сотруднике
-		int getTasks(fstream& FileE) {
-			setTasks(FileE);
-			return tasks;
+		int getTasks() {
+      return tasks;
 		}
 
 		///@brief setSize - метод возвращающий количество классов сотрудников в файле

@@ -5,7 +5,7 @@
 using namespace std;
 
 Task::Task(){
-    laboriousness = 0;
+  laboriousness = 0;
     deadline = 0;
     employee_id = 0;
     completness = 0;
@@ -29,7 +29,7 @@ int Task::setSize(fstream& FileT){
 }
 
 void Task::setT(string databaseT){
-  Task* t = new Task;
+  Task t;
 	fstream File;
 	File.open(databaseT, ios::app | ios::in);
 	if (!(File.is_open())){
@@ -38,20 +38,20 @@ void Task::setT(string databaseT){
 	}
 	cin.ignore(32767,'\n');
 	cout << "Введите название задачи:" << endl;
-	getline (cin, t->name);
+	getline (cin, t.name);
 	cout << "Опишите задачу:" << endl;
-	getline (cin, t->description);
+	getline (cin, t.description);
 	cout << "Введите трудоемкость задачи:" << endl;
-	cin >> t->laboriousness;
+	cin >> t.laboriousness;
 	cout << "Введите срок выполнения задачи:" << endl;
-	cin >> t->deadline;
-	File << t->laboriousness << endl;
-	File << t->deadline << endl;
-	File << t->employee_id << endl;
-	File << t->completness << endl;
-	File << t->name << endl;
-	File << t->description << endl;
-	File.close();
+	cin >> t.deadline;
+  File << t.laboriousness << endl;
+  File << t.deadline << endl;
+  File << '0' << endl;
+  File << '0' << endl;
+  File << t.name << endl;
+  File << t.description << endl;
+  File.close();
   delete t;
 }
 
@@ -62,23 +62,10 @@ void Task::viewT(string databaseT){
     cout << "Ошибка открытия файла" << endl;
     exit(0);
   }
-  Task* countT = new Task;
-  int sizeT = countT->setSize(FileT);
-  sizeT--;
-  delete countT;
   Task* t = new Task[sizeT];
-  FileT.clear();
-  FileT.seekg(0);
   int i;
-  for (i = 0; i < sizeT; i++) {
-    t[i].laboriousness = t->getLab(FileT);
-    t[i].deadline = t->getDeadl(FileT);
-    t[i].employee_id = t->getEmpId(FileT);
-    t[i].completness = t->getCompl(FileT);
-    FileT.ignore(32767,'\n');
-    t[i].name = t->getName(FileT);
-    t[i].description = t->getDescr(FileT);
-  }
+  //использовать сетсайз для размера
+  //написать функцию ввода из файла
   cout << "Свободные задачи:" << endl;
   for (i = 0; i < sizeT; i++) {
       if (t[i].employee_id == 0) {

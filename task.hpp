@@ -49,17 +49,15 @@ class Task {
 		@brief setLab - метод считывающий из файла переменную трудоемкости из файла в класс
 		@param FileT - поток файла задач
 		*/
-		void setLab(fstream& FileT) {
-			FileT >> laboriousness;
+		void setLab(int param) {
+			laboriousness = param;
 		}
 
 		/*!
 		@brief getLab - метод возвращающий переменную трудоемкости
-		@param FileT - поток файла задач
 		@return laboriousness - переменная трудоемкости
 		*/
-		int getLab(fstream& FileT) {
-			setLab(FileT);
+		int getLab() {
 			return laboriousness;
 		}
 
@@ -67,17 +65,15 @@ class Task {
 		@brief setDeadl - метод считывающий из файла переменную срока задачи из файла в класс
 		@param FileT - поток файла задач
 		*/
-		void setDeadl(fstream& FileT) {
-			FileT >> deadline;
+		void setDeadl(int param) {
+			deadline = param;
 		}
 
 		/*!
 		@brief getDeadl - метод возвращающий переменную срока задачи
-		@param FileT - поток файла задач
 		@return deadline - переменная срока задачи
 		*/
-		int getDeadl(fstream& FileT) {
-			setDeadl(FileT);
+		int getDeadl() {
 			return deadline;
 		}
 
@@ -85,17 +81,15 @@ class Task {
 		@brief setEmpId - метод считывающий из файла переменную ID сотрудника, который выполняет задачу из файла в класс
 		@param FileT - поток файла задач
 		*/
-		void setEmpId(fstream& FileT) {
-			FileT >> employee_id;
+		void setEmpId(int param) {
+			employee_id = param;
 		}
 
 		/*!
 		@brief getEmpId - метод возвращающий переменную ID сотрудника, который выполняет задачу
-		@param FileT - поток файла задач
 		@return employee_id - переменная ID сотрудника, который выполняет задачу
 		*/
-		int getEmpId(fstream& FileT) {
-			setEmpId(FileT);
+		int getEmpId() {
 			return employee_id;
 		}
 
@@ -103,17 +97,15 @@ class Task {
 		@brief setCompl - метод считывающий из файла переменную степени готовности задачи из файла в класс
 		@param FileT - поток файла задач
 		*/
-		void setCompl(fstream& FileT) {
-			FileT >> completness;
+		void setCompl(int param) {
+			completness = param;
 		}
 
 		/*!
 		@brief getCompl - метод возвращающий переменную степени готовности задачи
-		@param FileT - поток файла задач
 		@return completness - переменная степени готовности задачи
 		*/
-		int getCompl(fstream& FileT) {
-			setCompl(FileT);
+		int getCompl() {
 			return completness;
 		}
 
@@ -121,17 +113,15 @@ class Task {
 		@brief setName - метод считывающий из файла переменную названия задачи из файла в класс
 		@param FileT - поток файла задач
 		*/
-		void setName(fstream& FileT) {
-			getline(FileT, name,'\n');
+		void setName(string param) {
+			name = param;
 		}
 
 		/*!
 		@brief getName - метод возвращающий переменную названия задачи
-		@param FileT - поток файла задач
 		@return name - переменная названия задачи
 		*/
-		string getName(fstream& FileT) {
-			setName(FileT);
+		string getName() {
 			return name;
 		}
 
@@ -139,17 +129,15 @@ class Task {
 		@brief setDescr - метод считывающий из файла переменную описания задачи из файла в класс
 		@param FileT - поток файла задач
 		*/
-		void setDescr(fstream& FileT) {
-			getline(FileT, description,'\n');
+		void setDescr(string param) {
+			description = param;
 		}
 
 		/*!
 		@brief getDescr - метод возвращающий переменную описания задачи
-		@param FileT - поток файла задач
 		@return description - переменная описания задачи
 		*/
-		string getDescr(fstream& FileT) {
-			setDescr(FileT);
+		string getDescr() {
 			return description;
 		}
 
@@ -159,4 +147,5 @@ class Task {
 		@return size - переменная количества классов в файле
 		*/
 		int setSize(fstream& FileT);
+
 };
