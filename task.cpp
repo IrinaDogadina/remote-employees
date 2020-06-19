@@ -6,11 +6,11 @@ using namespace std;
 
 Task::Task(){
   laboriousness = 0;
-    deadline = 0;
-    employee_id = 0;
-    completness = 0;
-    name = {};
-    description = {};
+  deadline = 0;
+  employee_id = 0;
+  completness = 0;
+  name = {};
+  description = {};
 }
 
 int Task::setSize(fstream& FileT){
@@ -52,7 +52,6 @@ void Task::setT(string databaseT){
   File << t.name << endl;
   File << t.description << endl;
   File.close();
-  //delete t;
 }
 
 void Task::viewT(string databaseT){
@@ -62,24 +61,22 @@ void Task::viewT(string databaseT){
     cout << "Ошибка открытия файла" << endl;
     exit(0);
   }
-  //Task* t = new Task[sizeT];
+  Task* countT = new Task;
+	int sizeT = countT->setSize(FileT);
+  sizeT--;
+	delete countT;
+  FileT.clear();
+  FileT.seekg(0);
   int i;
-  //использовать сетсайз для размера
-  string str;
-	int sizeT=0;
-	while(getline(FileT,str)){sizeT++;}
-  sizeT=(sizeT)/5;
   Task* t = new Task[sizeT];
-	FileT.clear();
-	FileT.seekg(0);
-  //написать функцию ввода из файла
-  for(i=0;i<sizeT;i++){
-    FileT>>t[i].laboriousness;
-    FileT>>t[i].deadline;
-    FileT>>t[i].employee_id;
-    FileT>>t[i].completness;
-    FileT>>t[i].name;
-    FileT>>t[i].description;
+  for (i = 0; i < sizeT; i++){
+    FileT >> t[i].laboriousness;
+    FileT >> t[i].deadline;
+    FileT >> t[i].completness;
+    FileT >> t[i].employee_id;
+    FileT.ignore(32767,'\n');
+    getline(FileT,t[i].name,'\n');
+    getline(FileT,t[i].description,'\n');
   }
   cout << "Свободные задачи:" << endl;
   for (i = 0; i < sizeT; i++) {

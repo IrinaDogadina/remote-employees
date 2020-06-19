@@ -3,8 +3,10 @@
 #include <fstream>
 using namespace std;
 
-void Interface::viewE(int sizeT, int sizeE){
+void Interface::viewE(int sizeT, int sizeE) {
 	int i, j;
+	//проверка
+	cout << "про" << endl << e[0].getName() << t[0].getName() << "верка" << endl;
 	for (i = 0; i < sizeE; i++) {
 		cout << endl << e[i].getName() << ' ' << e[i].getSurname() << ' ' << e[i].getMiddName() << ' ' << "ID: " << e[i].getId() << " Часы работы в неделю: " << e[i].getTime() << endl;
 		for (j = 0; j < sizeT; j++){
@@ -20,13 +22,9 @@ void Interface::viewE(int sizeT, int sizeE){
 			}
 		}
 	}
-	delete[] t;
-	delete[] e;
 }
 
 void Interface::assign(int sizeT, int sizeE, string databaseT, string databaseE){
-	Employees* e;
-	Task* t;
 	string temp;
 	int temp_id;
 	int i, j, k;
@@ -262,19 +260,17 @@ void Interface::Read_f(string databaseT, string databaseE, int Menu){
 		cout << "Ошибка открытия файла" << endl;
 		exit(0);
 	}
-	//использовать сетсайз для размера
-	string str;
-	int sizeT=0, sizeE=0;
-	int i=0;
-	while(getline(FileT,str)){sizeT++;}
-  sizeT=(sizeT)/5;
+	int lab_t = 0, deadl_t = 0, emp_id_t = 0, compl_t = 0, id_e = 0, time_e = 0, tasks_e = 0;
+	string name_task = {}, descr_task = {}, name_e = {}, surname_e = {}, middlename_e = {};
+	Task* countT = new Task;
+	int sizeT = countT->setSize(FileT);
+  sizeT--;
+	delete countT;
+  FileT.clear();
+  FileT.seekg(0);
+  int i;
   Task* t = new Task[sizeT];
-	FileT.clear();
-	FileT.seekg(0);
-  //написать функцию ввода из файла
-	int lab_t,deadl_t,emp_id_t,compl_t;
-	string name_task,descr_task;
-  for(i=0;i<sizeT;i++){
+  for (i = 0; i < sizeT; i++){
 		FileT >> lab_t;
 		t[i].setLab(lab_t);
     FileT >> deadl_t;
@@ -283,38 +279,54 @@ void Interface::Read_f(string databaseT, string databaseE, int Menu){
 		t[i].setEmpId(emp_id_t);
 		FileT >> compl_t;
 		t[i].setCompl(compl_t);
-		FileT >> name_task;
+		FileT.ignore(32767,'\n');
+    getline(FileT, name_task, '\n');
 		t[i].setName(name_task);
-		FileT >> descr_task;
+		getline(FileT, descr_task, '\n');
 		t[i].setDescr(descr_task);
   }
 	FileT.close();
-	while(getline(FileE,str)){sizeE++;}
-	sizeE=(sizeE)/6;
-	FileE.clear();
-	FileE.seekg(0);
-	Employees* e= new Employees[sizeE];
-	string name_e,surname_e,middlename_e;
-	int id_e,time_e,tasks_e;
-	//написать функцию ввода из файла
-	for(i=0;i<sizeE;i++){
-		FileE << name_e;
+	Employees* countE = new Employees;
+	int sizeE = countE->setSize(FileE);
+  sizeE--;
+	delete countE;
+  FileE.clear();
+  FileE.seekg(0);
+  Employees* e = new Employees[sizeE];
+	for (i = 0; i < sizeE; i++){
+		FileE >> name_e;
 		e[i].setName(name_e);
-		FileE << surname_e;
+		FileE >> surname_e;
 		e[i].setSurname(surname_e);
-		FileE << middlename_e;
+		FileE >> middlename_e;
 		e[i].setMiddName(middlename_e);
-		FileE << id_e;
+		FileE >> id_e;
 		e[i].setId(id_e);
-		FileE <<time_e;
-		 e[i].setTime(time_e);
-		FileE << tasks_e;
+		FileE >> time_e;
+		e[i].setTime(time_e);
+		FileE >> tasks_e;
 		e[i].setTasks(tasks_e);
 	}
 	FileE.close();
-	Interface in;
-	if(Menu==4){in.assign(sizeT, sizeE, databaseT, databaseE);}
-	if(Menu==7){in.viewE(sizeT, sizeE);}
-	if(Menu==3){in.Time_F(sizeT, sizeE, databaseT, databaseE);}
-	if(Menu==5){in.Delete_E(sizeT, sizeE, databaseT, databaseE);}
+	//проверка
+	for (i = 0; i < sizeT; i++){
+		cout << t[i].getLab() << endl;
+		cout << t[i].getDeadl() << endl;
+		cout << t[i].getEmpId() << endl;
+		cout << t[i].getCompl() << endl;
+		cout << t[i].getName() << endl;
+		cout << t[i].getDescr() << endl;
+	}
+	for (i = 0; i < sizeE; i++){
+		cout << e[i].getName() << endl;
+		cout << e[i].getSurname() << endl;
+		cout << e[i].getMiddName() << endl;
+		cout << e[i].getId() << endl;
+		cout << e[i].getTime() << endl;
+		cout << e[i].getTasks() << endl;
+	}
+	if(Menu==4){assign(sizeT, sizeE, databaseT, databaseE);}
+	if(Menu==7){viewE(sizeT, sizeE);}
+	if(Menu==3){Time_F(sizeT, sizeE, databaseT, databaseE);}
+	if(Menu==5){Delete_E(sizeT, sizeE, databaseT, databaseE);}
 }
