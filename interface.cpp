@@ -5,8 +5,6 @@ using namespace std;
 
 void Interface::viewE(int sizeT, int sizeE) {
 	int i, j;
-	//проверка
-	cout << "про" << endl << e[0].getName() << t[0].getName() << "верка" << endl;
 	for (i = 0; i < sizeE; i++) {
 		cout << endl << e[i].getName() << ' ' << e[i].getSurname() << ' ' << e[i].getMiddName() << ' ' << "ID: " << e[i].getId() << " Часы работы в неделю: " << e[i].getTime() << endl;
 		for (j = 0; j < sizeT; j++){
@@ -269,7 +267,7 @@ void Interface::Read_f(string databaseT, string databaseE, int Menu){
   FileT.clear();
   FileT.seekg(0);
   int i;
-  Task* t = new Task[sizeT];
+  t = new Task[sizeT];
   for (i = 0; i < sizeT; i++){
 		FileT >> lab_t;
 		t[i].setLab(lab_t);
@@ -292,7 +290,7 @@ void Interface::Read_f(string databaseT, string databaseE, int Menu){
 	delete countE;
   FileE.clear();
   FileE.seekg(0);
-  Employees* e = new Employees[sizeE];
+  e = new Employees[sizeE];
 	for (i = 0; i < sizeE; i++){
 		FileE >> name_e;
 		e[i].setName(name_e);
@@ -308,23 +306,6 @@ void Interface::Read_f(string databaseT, string databaseE, int Menu){
 		e[i].setTasks(tasks_e);
 	}
 	FileE.close();
-	//проверка
-	for (i = 0; i < sizeT; i++){
-		cout << t[i].getLab() << endl;
-		cout << t[i].getDeadl() << endl;
-		cout << t[i].getEmpId() << endl;
-		cout << t[i].getCompl() << endl;
-		cout << t[i].getName() << endl;
-		cout << t[i].getDescr() << endl;
-	}
-	for (i = 0; i < sizeE; i++){
-		cout << e[i].getName() << endl;
-		cout << e[i].getSurname() << endl;
-		cout << e[i].getMiddName() << endl;
-		cout << e[i].getId() << endl;
-		cout << e[i].getTime() << endl;
-		cout << e[i].getTasks() << endl;
-	}
 	if(Menu==4){assign(sizeT, sizeE, databaseT, databaseE);}
 	if(Menu==7){viewE(sizeT, sizeE);}
 	if(Menu==3){Time_F(sizeT, sizeE, databaseT, databaseE);}
