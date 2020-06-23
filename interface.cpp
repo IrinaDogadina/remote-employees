@@ -33,7 +33,7 @@ void Interface::assign(int sizeT, int sizeE, string databaseT, string databaseE)
 				cout << endl << "Трудоемкость: " << t[i].getLab() << " часов" << endl;
 				cout << "Срок выполнения: " << t[i].getDeadl() << " часов" << endl;
 				cout << "Степень готовности: " << t[i].getCompl() << "%" << endl;
-				cout<<"---------------"<<endl;
+				cout << "---------------" << endl;
 			}
 		}
 	cin.ignore(32767,'\n');
@@ -49,11 +49,6 @@ void Interface::assign(int sizeT, int sizeE, string databaseT, string databaseE)
 			cin >> temp_id;
 			for (j = 0; j < sizeE; j++){
 				if (temp_id == e[j].getId()){
-					/*!
-					@brief проверка возможности выполнения задачи сотрудником
-					@brief если срок и трудоемкость задачи превышает одну неделю,
-					@brief то из обоих переменных вычитается количество недель, а также ведется счетчик недель
-					*/
 					int count = 0;
 					int ddl = t[i].getDeadl();
 					if (ddl > 168 && t[i].getLab() > e[j].getTime()){
@@ -65,18 +60,8 @@ void Interface::assign(int sizeT, int sizeE, string databaseT, string databaseE)
 					else {
 						count = 1;
 					}
-					/*!
-					@brief если срок задачи больше или равно, чем трудоемкость задачи после выполнения ее сотрудником спустя n количество недель
-					@brief и если трудоемкость задачи после выполнения ее сотрудником спустя n количество недель меньше или равна нулю
-					@brief то задача не назначается
-					*/
 					if (ddl >= (t[i].getLab()-((e[j].getTime()*count)/(e[j].getTasks()+1))) && ((t[i].getLab()-((e[j].getTime()*count)/(e[j].getTasks()+1))) <= 0)){
 						int a = 0;
-						/*!
-						@brief если сотрудник успеет выполнить назначаемую задачу,
-						@brief то проверяется возможность выполнения уже назначенных задач по той же схеме
-						@brief если сотрудник не успеет выполнить уже назначенные задачи, то назначаемая задача не назначается
-						*/
 						if (e[j].getTasks() != 0){
 							for (k = 0; k < sizeT; k++){
 								if (t[k].getEmpId() == temp_id) {
@@ -145,13 +130,6 @@ void Interface::Time_F(int sizeT, int sizeE, string databaseT, string databaseE)
 	for (i = 0; i < sizeE; i++){
 		if (e[i].getTasks() != 0){
 			for (j = 0; j < sizeT; j++){
-				/*!
-				@brief перерасчет степени готовности, срока, трудоемкости задач спустя неделю
-				@brief из трудоемкости вычитается рабочее время работника деленное на количество задач сотрудника
-				@brief из срока вычитается неделя
-				@brief степень готовности считается от вычтенной трудоемкости к первоначальной
-				@brief при завершении задач задачам присваивается нулевой срок, трудоемкость, уменьшается количество задач на сотруднике
-				*/
 				 if (t[j].getEmpId() != 0 && t[j].getEmpId() == e[i].getId() && t[j].getCompl() != 100 && t[j].getLab() != 0){
 					int count = t[j].getLab()-((e[i].getTime())/(e[i].getTasks()));
 					int cmpl = ((count*100)/(t[j].getLab()));

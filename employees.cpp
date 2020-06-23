@@ -15,7 +15,7 @@ Employees::Employees(){
 
 int Employees::setSize(fstream& FileE){
   int size = 0;
-  while(!FileE.eof()) {
+  while (!FileE.eof()) {
     FileE >> name;
     FileE >> surname;
     FileE >> middlename;

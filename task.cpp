@@ -15,7 +15,7 @@ Task::Task(){
 
 int Task::setSize(fstream& FileT){
   int size = 0;
-  while(!FileT.eof()) {
+  while (!FileT.eof()) {
     FileT >> laboriousness;
     FileT >> deadline;
     FileT >> employee_id;

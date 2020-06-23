@@ -46,8 +46,8 @@ class Task {
 		void viewT(string databaseT);
 
 		/*!
-		@brief setLab - метод считывающий из файла переменную трудоемкости из файла в класс
-		@param FileT - поток файла задач
+		@brief setLab - метод присваивающий переменной трудоемкости переданное значение
+		@param param - целочисленная передаваемая переменная
 		*/
 		void setLab(int param) {
 			laboriousness = param;
@@ -62,8 +62,8 @@ class Task {
 		}
 
 		/*!
-		@brief setDeadl - метод считывающий из файла переменную срока задачи из файла в класс
-		@param FileT - поток файла задач
+		@brief setDeadl - метод присваивающий переменной срока переданное значение
+		@param param - целочисленная передаваемая переменная
 		*/
 		void setDeadl(int param) {
 			deadline = param;
@@ -78,8 +78,8 @@ class Task {
 		}
 
 		/*!
-		@brief setEmpId - метод считывающий из файла переменную ID сотрудника, который выполняет задачу из файла в класс
-		@param FileT - поток файла задач
+		@brief setEmpId - метод присваивающий переменной ID сотрудника, выполняющего задачу переданное значение
+		@param param - целочисленная передаваемая переменная
 		*/
 		void setEmpId(int param) {
 			employee_id = param;
@@ -94,8 +94,8 @@ class Task {
 		}
 
 		/*!
-		@brief setCompl - метод считывающий из файла переменную степени готовности задачи из файла в класс
-		@param FileT - поток файла задач
+		@brief setCompl - метод присваивающий переменной степени готовности переданное значение
+		@param param - целочисленная передаваемая переменная
 		*/
 		void setCompl(int param) {
 			completness = param;
@@ -110,8 +110,8 @@ class Task {
 		}
 
 		/*!
-		@brief setName - метод считывающий из файла переменную названия задачи из файла в класс
-		@param FileT - поток файла задач
+		@brief setName - метод присваивающий переменной названия задачи переданное значение
+		@param param - строковая передаваемая переменная
 		*/
 		void setName(string param) {
 			name = param;
@@ -126,8 +126,8 @@ class Task {
 		}
 
 		/*!
-		@brief setDescr - метод считывающий из файла переменную описания задачи из файла в класс
-		@param FileT - поток файла задач
+		@brief setDescr - метод присваивающий переменной описания задачи переданное значение
+		@param param - строковая передаваемая переменная
 		*/
 		void setDescr(string param) {
 			description = param;
