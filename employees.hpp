@@ -44,7 +44,11 @@ void setE(string databaseE);
    @param param - строковая передаваемая переменная
  */
 void setName(string param) {
+<<<<<<< HEAD
         name = param;
+=======
+								name = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -52,7 +56,11 @@ void setName(string param) {
    @return name - переменная имени сотрудника
  */
 string getName() {
+<<<<<<< HEAD
         return name;
+=======
+								return name;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -60,7 +68,11 @@ string getName() {
    @param param - строковая передаваемая переменная
  */
 void setSurname(string param) {
+<<<<<<< HEAD
         surname = param;
+=======
+								surname = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -68,7 +80,11 @@ void setSurname(string param) {
    @return surname - переменная фамилии сотрудника
  */
 string getSurname() {
+<<<<<<< HEAD
         return surname;
+=======
+								return surname;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -76,7 +92,11 @@ string getSurname() {
    @param param - строковая передаваемая переменная
  */
 void setMiddName(string param) {
+<<<<<<< HEAD
         middlename = param;
+=======
+								middlename = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -84,7 +104,11 @@ void setMiddName(string param) {
    @return middlename - переменная отчества сотрудника
  */
 string getMiddName() {
+<<<<<<< HEAD
         return middlename;
+=======
+								return middlename;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -92,7 +116,11 @@ string getMiddName() {
    @param param - целочисленная передаваемая переменная
  */
 void setId(int param) {
+<<<<<<< HEAD
         id = param;
+=======
+								id = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -100,7 +128,11 @@ void setId(int param) {
    @return id - переменная ID сотрудника
  */
 int getId() {
+<<<<<<< HEAD
         return id;
+=======
+								return id;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -108,7 +140,11 @@ int getId() {
    @param param - целочисленная передаваемая переменная
  */
 void setTime(int param) {
+<<<<<<< HEAD
         time = param;
+=======
+								time = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -116,7 +152,11 @@ void setTime(int param) {
    @return time - переменная рабочего времени сотрудника
  */
 int getTime() {
+<<<<<<< HEAD
         return time;
+=======
+								return time;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -124,7 +164,11 @@ int getTime() {
    @param param - целочисленная передаваемая переменная
  */
 void setTasks(int param) {
+<<<<<<< HEAD
         tasks = param;
+=======
+								tasks = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -132,7 +176,11 @@ void setTasks(int param) {
    @return tasks - переменная количества задач на сотруднике
  */
 int getTasks() {
+<<<<<<< HEAD
         return tasks;
+=======
+								return tasks;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!

@@ -50,7 +50,11 @@ void viewT(string databaseT);
    @param param - целочисленная передаваемая переменная
  */
 void setLab(int param) {
+<<<<<<< HEAD
         laboriousness = param;
+=======
+								laboriousness = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -58,7 +62,11 @@ void setLab(int param) {
    @return laboriousness - переменная трудоемкости
  */
 int getLab() {
+<<<<<<< HEAD
         return laboriousness;
+=======
+								return laboriousness;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -66,7 +74,11 @@ int getLab() {
    @param param - целочисленная передаваемая переменная
  */
 void setDeadl(int param) {
+<<<<<<< HEAD
         deadline = param;
+=======
+								deadline = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -74,7 +86,11 @@ void setDeadl(int param) {
    @return deadline - переменная срока задачи
  */
 int getDeadl() {
+<<<<<<< HEAD
         return deadline;
+=======
+								return deadline;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -82,7 +98,11 @@ int getDeadl() {
    @param param - целочисленная передаваемая переменная
  */
 void setEmpId(int param) {
+<<<<<<< HEAD
         employee_id = param;
+=======
+								employee_id = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -90,7 +110,11 @@ void setEmpId(int param) {
    @return employee_id - переменная ID сотрудника, который выполняет задачу
  */
 int getEmpId() {
+<<<<<<< HEAD
         return employee_id;
+=======
+								return employee_id;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -98,7 +122,11 @@ int getEmpId() {
    @param param - целочисленная передаваемая переменная
  */
 void setCompl(int param) {
+<<<<<<< HEAD
         completness = param;
+=======
+								completness = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -106,7 +134,11 @@ void setCompl(int param) {
    @return completness - переменная степени готовности задачи
  */
 int getCompl() {
+<<<<<<< HEAD
         return completness;
+=======
+								return completness;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -114,7 +146,11 @@ int getCompl() {
    @param param - строковая передаваемая переменная
  */
 void setName(string param) {
+<<<<<<< HEAD
         name = param;
+=======
+								name = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -122,7 +158,11 @@ void setName(string param) {
    @return name - переменная названия задачи
  */
 string getName() {
+<<<<<<< HEAD
         return name;
+=======
+								return name;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -130,7 +170,11 @@ string getName() {
    @param param - строковая передаваемая переменная
  */
 void setDescr(string param) {
+<<<<<<< HEAD
         description = param;
+=======
+								description = param;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
@@ -138,7 +182,11 @@ void setDescr(string param) {
    @return description - переменная описания задачи
  */
 string getDescr() {
+<<<<<<< HEAD
         return description;
+=======
+								return description;
+>>>>>>> 624e630676ad65d999c90a2ddb3c461356f97cc0
 }
 
 /*!
